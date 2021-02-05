@@ -7,12 +7,16 @@
 #include <optional>
 #include <span>
 
+#include "tagged_id.h"
+
 namespace wl {
 
 class JackNode {
 public:
-	using ID = std::uint8_t;
-	using WaterBodyID = std::uint8_t;
+	struct JackTag{};
+	struct WaterBodyTag{};
+	using ID = TaggedID<JackTag>;
+	using WaterBodyID = TaggedID<WaterBodyTag>;
 
 private:
 	struct Normal{
@@ -32,7 +36,7 @@ private:
 		}
 	};
 	class Water {
-		WaterBodyID water_body_id_ = 0;
+		WaterBodyID water_body_id_{ static_cast<std::uint8_t>(0u) };
 	public:
 		constexpr bool can_drop_evidence() const noexcept {
 			return false;
@@ -84,12 +88,18 @@ public:
 
 // jid_from_label
 constexpr JackNode::ID jid(std::uint8_t label_id) noexcept {
-	return label_id - 1;
+	return JackNode::ID{static_cast<std::uint8_t>(label_id - 1)};
+}
+
+// jid_from_label
+constexpr std::uint8_t jid_to_label(JackNode::ID id) noexcept {
+	return static_cast<std::uint8_t>(id) + 1;
 }
 
 class InvestigatorNode {
 public:
-	using ID = std::uint8_t;
+	struct InvestigatorTag{};
+	using ID = TaggedID<InvestigatorTag>;
 
 private:
 	bool                      starting_position_ = false;

@@ -1,21 +1,30 @@
 #include <iostream>
 #include <wl.h>
 
+void print_id(wl::JackNode::ID id) {
+	std::cout << static_cast<int>(jid_to_label(id));
+}
+
+void print_id(wl::InvestigatorNode::ID id) {
+	std::cout << static_cast<int>(id);
+}
+
 template<class IDType>
 void print_id_list(std::span<const IDType> id_list) {
 	const auto num_elements = id_list.size();
 	switch (num_elements) {
 	case 0: return;
-	case 1: std::cout << static_cast<int>(id_list[0]); return;
+	case 1: print_id(id_list.front()); return;
 	default:
 		break;
 	}
 
 	const auto all_but_last = id_list.first(num_elements - 1);
 	for (const auto id : all_but_last) {
-		std::cout << static_cast<int>(id) << ",";
+		print_id(id);
+		std::cout << ",";
 	}
-	std::cout << static_cast<int>(id_list.back());
+	print_id(id_list.back());
 }
 
 void print_jack_node(const wl::JackNode& jack_node) {
@@ -41,17 +50,21 @@ void print_investigator_node(const wl::InvestigatorNode& investigator_node) {
 void print_graph(const wl::MapGraph& graph) {
 	std::cout << "graph:" << std::endl; 
 	{
-		wl::JackNode::ID id = 0u;
+		wl::JackNode::ID id{ static_cast<std::uint8_t>(0u) };
 		for (const auto& jack_node : graph.jack_nodes()) {
-			std::cout << "\tj " << static_cast<int>(id) << ":" << std::endl;
+			std::cout << "\tj ";
+			print_id(id);
+			std::cout << ":" << std::endl;
 			print_jack_node(jack_node);
 			++id;
 		}
 	}
 	{
-		wl::InvestigatorNode::ID id = 0u;
+		wl::InvestigatorNode::ID id{ static_cast<std::uint8_t>(0u) };
 		for (const auto& investigator_node : graph.investigator_nodes()) {
-			std::cout << "\ti " << static_cast<int>(id) << ":" << std::endl;;
+			std::cout << "\ti ";
+			print_id(id);
+			std::cout << ":" << std::endl;
 			print_investigator_node(investigator_node);
 			++id;
 		}
