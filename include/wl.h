@@ -18,7 +18,6 @@ public:
 	using ID = TaggedID<JackTag>;
 	using WaterBodyID = TaggedID<WaterBodyTag>;
 
-private:
 	struct Normal{
 		constexpr bool can_drop_evidence() const noexcept {
 			return true;
@@ -46,6 +45,7 @@ private:
 			return water_body_id_;
 		}
 	};
+private:
 	using Type = std::variant<Normal,NoEvidence,Water>;
 	Type            type_{ Normal{} };
 	std::vector<ID> neighbors_{};

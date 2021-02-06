@@ -76,8 +76,14 @@ using wl::jid;
 int main(int argc, char** argv) {
 	wl::MapGraph map_graph{
 		{
-			wl::JackNode{{jid(2u), jid(8u), jid(9u), jid(10u), jid(11u), jid(12u), jid(14u),
-				          jid(28u), jid(29u)}}
+		/*j001*/wl::JackNode{{jid(2u), jid(8u), jid(9u), jid(10u), jid(11u), jid(12u),
+				              jid(14u), jid(28u), jid(29u)}},
+		/*j002*/wl::JackNode{{jid(1u), jid(3u), jid(9u), jid(11u), jid(12u), jid(14u),
+				              jid(16u), jid(17u)}},
+		/*j003*/wl::JackNode{{jid(2u), jid(4u), jid(16u), jid(17u), jid(18u), jid(19u),
+				              jid(20u), jid(21u), jid(37u), jid(38u)}},
+		/*j004*/wl::JackNode{{jid(3u), jid(5u), jid(19u), jid(20u), jid(21u), jid(38u)},
+		                      wl::JackNode::NoEvidence{}}
 		},
 		{}};
 
