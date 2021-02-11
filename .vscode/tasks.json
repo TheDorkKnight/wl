@@ -30,7 +30,7 @@
                 "-I",
                 "${fileDirname}/../include",
                 "-o",
-                "whitehall",
+                "${fileDirname}/whitehall",
                 "${file}"
             ],
             "group": "build",
