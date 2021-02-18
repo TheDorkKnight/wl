@@ -1,6 +1,6 @@
 #include <iostream>
 #include <iomanip>
-#include <wl.h>
+#include <wl/wl.h>
 
 void print_id(wl::JackNode::ID id) {
 	std::cout << std::setfill('0') << std::setw(3) << static_cast<int>(jid_to_label(id));
