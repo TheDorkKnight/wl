@@ -47,23 +47,23 @@ public:
 	};
 private:
 	using Type = std::variant<Normal,NoEvidence,Water>;
-	Type            type_{ Normal{} };
-	std::vector<ID> neighbors_{};
+	Type                type_{ Normal{} };
+	std::span<const ID> neighbors_{};
 public:
-	JackNode(std::vector<ID> nbors) noexcept
-		: neighbors_{ std::move(nbors) }
+	constexpr JackNode(std::span<const ID> nbors) noexcept
+		: neighbors_{ nbors }
 		, type_{ Normal{} }
 	{}
 
-	JackNode(std::vector<ID> nbors,
+	constexpr JackNode(std::span<const ID> nbors,
 		     NoEvidence no_evidence) noexcept
-		: neighbors_{ std::move(nbors) }
+		: neighbors_{ nbors }
 		, type_{ std::move(no_evidence) }
 	{}
 
-	JackNode(std::vector<ID> nbors,
+	constexpr JackNode(std::span<const ID> nbors,
 		     Water water) noexcept
-		: neighbors_{ std::move(nbors) }
+		: neighbors_{ nbors }
 		, type_{ std::move(water) }
 	{}
 
@@ -83,7 +83,7 @@ public:
 			}, type_);
 	}
 
-	std::span<const ID> neighbors() const noexcept { return neighbors_; }
+	constexpr std::span<const ID> neighbors() const noexcept { return neighbors_; }
 };
 
 // jid_from_label
@@ -102,22 +102,22 @@ public:
 	using ID = TaggedID<InvestigatorTag>;
 
 private:
-	bool                      starting_position_ = false;
-	std::vector<ID>           neighbors_{};
-	std::vector<JackNode::ID> jack_node_neighbors_{};
+	bool                          starting_position_ = false;
+	std::span<const ID>           neighbors_{};
+	std::span<const JackNode::ID> jack_node_neighbors_{};
 public:
-	InvestigatorNode(std::vector<ID> nbors,
-		             std::vector<JackNode::ID> jack_nbors,
-		             bool is_starting_pos = false) noexcept
-		: neighbors_{ std::move(nbors) }
-		, jack_node_neighbors_{ std::move(jack_nbors) }
+	constexpr InvestigatorNode(std::span<const ID> nbors,
+		                       std::span<const JackNode::ID> jack_nbors,
+		                       bool is_starting_pos = false) noexcept
+		: neighbors_{ nbors }
+		, jack_node_neighbors_{ jack_nbors }
 		, starting_position_{ is_starting_pos }
 	{}
 
-	std::span<const ID> neighbors() const noexcept
+	constexpr std::span<const ID> neighbors() const noexcept
 	{ return neighbors_; }
 
-	std::span<const JackNode::ID> jack_neighbors() const noexcept
+	constexpr std::span<const JackNode::ID> jack_neighbors() const noexcept
 	{ return jack_node_neighbors_; }
 
 	constexpr bool is_starting_position() const noexcept {
