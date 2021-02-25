@@ -81,7 +81,8 @@ int main(int argc, char** argv) {
 		/*j001*/wl::JackNode{wl::j001_nbors},
 		/*j002*/wl::JackNode{wl::j002_nbors},
 		/*j003*/wl::JackNode{wl::j003_nbors},
-		/*j004*/wl::JackNode{wl::j004_nbors, wl::JackNode::NoEvidence{}}
+		/*j004*/wl::JackNode{wl::j004_nbors, wl::JackNode::NoEvidence{}},
+		/*j005*/wl::JackNode{wl::j005_nbors}
 		},
 		{}};
 
