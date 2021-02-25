@@ -18,7 +18,10 @@ static constexpr std::array<JackNode::ID, 10> j003_nbors = {
 	jid(37u), jid(38u)};
 
 static constexpr std::array<JackNode::ID, 6> j004_nbors = {
-	jid(3u), jid(5u), jid(19u), jid(20u), jid(21u), jid(38u)};
+	jid(3u), jid(5u), jid(19u), jid(20u), jid(21u), jid(38u) };
+
+static constexpr std::array<JackNode::ID, 4> j005_nbors = {
+	jid(4u), jid(20u), jid(22u), jid(23u) };
 
 } // namespace wl
 
