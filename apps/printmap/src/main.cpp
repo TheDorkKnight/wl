@@ -1,6 +1,7 @@
 #include <iostream>
 #include <iomanip>
 #include <wl/wl.h>
+#include <wl/j_nodes.h>
 
 void print_id(wl::JackNode::ID id) {
 	std::cout << std::setfill('0') << std::setw(3) << static_cast<int>(jid_to_label(id));
@@ -77,14 +78,10 @@ using wl::jid;
 int main(int argc, char** argv) {
 	wl::MapGraph map_graph{
 		{
-		/*j001*/wl::JackNode{{jid(2u), jid(8u), jid(9u), jid(10u), jid(11u), jid(12u),
-				              jid(14u), jid(28u), jid(29u)}},
-		/*j002*/wl::JackNode{{jid(1u), jid(3u), jid(9u), jid(11u), jid(12u), jid(14u),
-				              jid(16u), jid(17u)}},
-		/*j003*/wl::JackNode{{jid(2u), jid(4u), jid(16u), jid(17u), jid(18u), jid(19u),
-				              jid(20u), jid(21u), jid(37u), jid(38u)}},
-		/*j004*/wl::JackNode{{jid(3u), jid(5u), jid(19u), jid(20u), jid(21u), jid(38u)},
-		                      wl::JackNode::NoEvidence{}}
+		/*j001*/wl::JackNode{wl::j001_nbors},
+		/*j002*/wl::JackNode{wl::j002_nbors},
+		/*j003*/wl::JackNode{wl::j003_nbors},
+		/*j004*/wl::JackNode{wl::j004_nbors, wl::JackNode::NoEvidence{}}
 		},
 		{}};
 
