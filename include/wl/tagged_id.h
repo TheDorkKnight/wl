@@ -2,18 +2,20 @@
 #define WL_TAGGED_ID_H
 
 #include <cstdint>
+#include <type_traits>
 
 namespace wl {
 
-template<class IDTag>
+template<class IDTag, class NumberType = std::uint8_t>
 class TaggedID {
-	std::uint8_t id_ = 0u;
+	static_assert(std::is_unsigned_v<NumberType>);
+	NumberType id_ = 0u;
 public:
-	explicit constexpr TaggedID(std::uint8_t id_val) noexcept
+	explicit constexpr TaggedID(NumberType id_val) noexcept
 		: id_{id_val}
 	{}
 
-	explicit constexpr operator std::uint8_t() const noexcept {
+	explicit constexpr operator NumberType() const noexcept {
 		return id_;
 	}
 	explicit constexpr operator int() const noexcept {
