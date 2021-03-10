@@ -18,8 +18,8 @@ public:
 	explicit constexpr operator NumberType() const noexcept {
 		return id_;
 	}
-	explicit constexpr operator int() const noexcept {
-		return static_cast<int>(id_);
+	explicit constexpr operator std::size_t() const noexcept {
+		return static_cast<std::size_t>(id_);
 	}
 
 	constexpr TaggedID& operator++() noexcept {
