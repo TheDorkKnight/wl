@@ -1,7 +1,7 @@
 #include <iostream>
 #include <iomanip>
 #include <wl/wl.h>
-#include <wl/j_nodes.h>
+#include <wl/default_map.h>
 
 void print_id(wl::MapNode::ID id) {
 	std::cout << std::setfill('0') << std::setw(3) << static_cast<std::size_t>(map_id_to_label(id));
@@ -69,31 +69,9 @@ void print_graph(const wl::MapGraph& graph) {
 	}
 }
 
-static constexpr std::array<wl::MapNode,7> map_nodes = {
-	/*j001*/wl::MapNode{wl::j001_nbors},
-	/*j002*/wl::MapNode{wl::j002_nbors},
-	/*j003*/wl::MapNode{wl::j003_nbors},
-	/*j004*/wl::MapNode{wl::j004_nbors},
-	/*j005*/wl::MapNode{wl::j005_nbors},
-	/*j006*/wl::MapNode{wl::j006_nbors},
-	/*j007*/wl::MapNode{wl::j007_nbors}
-};
-
-static constexpr std::array<wl::JackNode,7> jack_nodes = {
-	/*j001*/wl::JackNode{},
-	/*j002*/wl::JackNode{},
-	/*j003*/wl::JackNode{},
-	/*j004*/wl::JackNode{wl::JackNode::NoEvidence{}},
-	/*j005*/wl::JackNode{},
-	/*j006*/wl::JackNode{},
-	/*j007*/wl::JackNode{}
-};
-
-
 
 int main(int argc, char** argv) {
-	constexpr std::span<const wl::InvestigatorNode, 0> investigator_nodes;
-	const wl::MapGraph map_graph{map_nodes, jack_nodes, investigator_nodes};
+	const wl::MapGraph map_graph{wl::default_map()};
 	std::cout << "Hello Rigel!" << std::endl;
 	print_graph(map_graph);
 	return 0;
