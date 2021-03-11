@@ -23,7 +23,7 @@ private:
 	std::span<const ID> neighbors_{};
 
 	constexpr auto find_neighbor(ID nbor) const noexcept {
-		return std::find(neighbors_.cbegin(), neighbors_.cend(), nbor);
+		return std::find(neighbors_.begin(), neighbors_.end(), nbor);
 	}
 
 public:
@@ -33,14 +33,14 @@ public:
 
 	constexpr std::optional<ID> neighbor_counter_clockwise_of(ID nbor) const noexcept {
 		auto nbor_itr = find_neighbor(nbor);
-		if (nbor_itr == neighbors_.cend()) {
+		if (nbor_itr == neighbors_.end()) {
 			return std::nullopt;
 		}
 		// now decrement by one, since neighbors are in clockwise order
-		if (nbor_itr == neighbors_.cbegin()) {
+		if (nbor_itr == neighbors_.begin()) {
 			// note that we are guaranteed at least size() >= 1, since
 			// we found a the neighbour. Return last neighbour in list.
-			nbor_itr = (neighbors_.cend() - 1);
+			nbor_itr = (neighbors_.end() - 1);
 		} else {
 			--nbor_itr;
 		}
@@ -49,14 +49,14 @@ public:
 
 	constexpr std::optional<ID> neighbor_clockwise_of(ID nbor) const noexcept {
 		auto nbor_itr = find_neighbor(nbor);
-		if (nbor_itr == neighbors_.cend()) {
+		if (nbor_itr == neighbors_.end()) {
 			return std::nullopt;
 		}
 		// now increment by one, since neighbors are in clockwise order
 		++nbor_itr;
-		if (nbor_itr == neighbors_.cend()) {
+		if (nbor_itr == neighbors_.end()) {
 			// wrap around to beginning
-			nbor_itr = neighbors_.cbegin();
+			nbor_itr = neighbors_.begin();
 		}
 		return *nbor_itr;
 	}

@@ -89,10 +89,10 @@ static constexpr std::array<wl::JackNode,7> jack_nodes = {
 	/*j007*/wl::JackNode{}
 };
 
-static constexpr std::array<wl::InvestigatorNode,0> investigator_nodes = {
-};
+
 
 int main(int argc, char** argv) {
+	constexpr std::span<const wl::InvestigatorNode, 0> investigator_nodes;
 	const wl::MapGraph map_graph{map_nodes, jack_nodes, investigator_nodes};
 	std::cout << "Hello Rigel!" << std::endl;
 	print_graph(map_graph);
