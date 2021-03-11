@@ -25,6 +25,12 @@ void print_id_list(std::span<const IDType> id_list) {
 	print_id(id_list.back());
 }
 
+void print_jack_node_id(wl::MapNode::ID id) {
+	std::cout << "\tj ";
+	print_id(id);
+	std::cout << ":" << std::endl;
+}
+
 void print_jack_node(const wl::JackNode& jack_node,
 	                 const wl::MapNode& map_node) {
 	std::cout << "\t\tneighbors: ";
@@ -37,6 +43,12 @@ void print_jack_node(const wl::JackNode& jack_node,
 	}
 }
 
+void print_investigator_node_id(wl::MapNode::ID id) {
+	std::cout << "\ti ";
+	print_id(id);
+	std::cout << ":" << std::endl;
+}
+
 void print_investigator_node(const wl::InvestigatorNode& investigator_node,
 	                         const wl::MapNode& map_node) {
 	std::cout << "\t\tneighbors: ";
@@ -46,27 +58,15 @@ void print_investigator_node(const wl::InvestigatorNode& investigator_node,
 }
 
 void print_graph(const wl::MapGraph& graph) {
-	std::cout << "graph:" << std::endl; 
-	{
-		wl::MapNode::ID id = graph.base_jack_node_id();
-		for (const auto& jack_node : graph.jack_nodes()) {
-			std::cout << "\tj ";
-			print_id(id);
-			std::cout << ":" << std::endl;
-			print_jack_node(jack_node, graph.map_node(id));
-			++id;
-		}
-	}
-	{
-		wl::MapNode::ID id = graph.base_investigator_node_id();
-		for (const auto& investigator_node : graph.investigator_nodes()) {
-			std::cout << "\ti ";
-			print_id(id);
-			std::cout << ":" << std::endl;
-			print_investigator_node(investigator_node, graph.map_node(id));
-			++id;
-		}
-	}
+	std::cout << "graph:" << std::endl;
+	graph.for_each_jack_node([&graph](const wl::JackNode& j_node, wl::MapNode::ID id) {
+		print_jack_node_id(id);
+		print_jack_node(j_node, graph.map_node(id));
+	});
+	graph.for_each_investigator_node([&graph](const wl::InvestigatorNode& i_node, wl::MapNode::ID id) {
+		print_investigator_node_id(id);
+		print_investigator_node(i_node, graph.map_node(id));
+	});
 }
 
 static constexpr std::array<wl::MapNode,7> map_nodes = {
@@ -88,8 +88,6 @@ static constexpr std::array<wl::JackNode,7> jack_nodes = {
 	/*j006*/wl::JackNode{},
 	/*j007*/wl::JackNode{}
 };
-
-
 
 int main(int argc, char** argv) {
 	constexpr std::span<const wl::InvestigatorNode, 0> investigator_nodes;

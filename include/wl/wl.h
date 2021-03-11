@@ -219,6 +219,26 @@ public:
 
 	std::span<const InvestigatorNode, num_investigator_nodes> investigator_nodes() const noexcept
 	{ return investigator_nodes_; }
+
+	// Func should have signature void(const JackNode&, MapNode::ID id)
+	template<class Func>
+	void for_each_jack_node(Func&& func_on_j_node) const noexcept {
+		auto id = base_jack_node_id();
+		for (const auto& j_node : jack_nodes_) {
+			func_on_j_node(j_node, id);
+			++id;
+		}
+	}
+
+	// Func should have signature void(const InvestigatorNode&, MapNode::ID id)
+	template<class Func>
+	void for_each_investigator_node(Func&& func_on_i_node) const noexcept {
+		auto id = base_investigator_node_id();
+		for (const auto& i_node : investigator_nodes_) {
+			func_on_i_node(i_node, id);
+			++id;
+		}
+	}
 };
 
 } // namespace wl
