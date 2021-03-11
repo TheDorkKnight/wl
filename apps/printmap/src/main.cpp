@@ -3,12 +3,8 @@
 #include <wl/wl.h>
 #include <wl/j_nodes.h>
 
-void print_id(wl::JackNode::ID id) {
-	std::cout << std::setfill('0') << std::setw(3) << static_cast<int>(jid_to_label(id));
-}
-
-void print_id(wl::InvestigatorNode::ID id) {
-	std::cout << static_cast<int>(id);
+void print_id(wl::MapNode::ID id) {
+	std::cout << std::setfill('0') << std::setw(3) << static_cast<std::size_t>(map_id_to_label(id));
 }
 
 template<class IDType>
@@ -29,22 +25,22 @@ void print_id_list(std::span<const IDType> id_list) {
 	print_id(id_list.back());
 }
 
-void print_jack_node(const wl::JackNode& jack_node) {
+void print_jack_node(const wl::JackNode& jack_node,
+	                 const wl::MapNode& map_node) {
 	std::cout << "\t\tneighbors: ";
-	print_id_list(jack_node.neighbors());
+	print_id_list(map_node.neighbors());
 	std::cout << std::endl << "\t\tcan drop evidence: " <<
 		(jack_node.can_drop_evidence() ? "true" : "false") << std::endl;
 	const auto water_body_id = jack_node.water_body_id();
 	if (water_body_id.has_value()) {
-		std::cout << std::endl << "\t\twater body id: " << static_cast<int>(*water_body_id) << std::endl;
+		std::cout << std::endl << "\t\twater body id: " << static_cast<std::size_t>(*water_body_id) << std::endl;
 	}
 }
 
-void print_investigator_node(const wl::InvestigatorNode& investigator_node) {
+void print_investigator_node(const wl::InvestigatorNode& investigator_node,
+	                         const wl::MapNode& map_node) {
 	std::cout << "\t\tneighbors: ";
-	print_id_list(investigator_node.neighbors());
-	std::cout << std::endl << "\t\tjack neighbors: ";
-	print_id_list(investigator_node.jack_neighbors());
+	print_id_list(map_node.neighbors());
 	std::cout << std::endl << "\t\tcan start: " <<
 		(investigator_node.is_starting_position() ? "true" : "false") << std::endl;
 }
@@ -52,42 +48,52 @@ void print_investigator_node(const wl::InvestigatorNode& investigator_node) {
 void print_graph(const wl::MapGraph& graph) {
 	std::cout << "graph:" << std::endl; 
 	{
-		wl::JackNode::ID id{ static_cast<std::uint8_t>(0u) };
+		wl::MapNode::ID id = graph.base_jack_node_id();
 		for (const auto& jack_node : graph.jack_nodes()) {
 			std::cout << "\tj ";
 			print_id(id);
 			std::cout << ":" << std::endl;
-			print_jack_node(jack_node);
+			print_jack_node(jack_node, graph.map_node(id));
 			++id;
 		}
 	}
 	{
-		wl::InvestigatorNode::ID id{ static_cast<std::uint8_t>(0u) };
+		wl::MapNode::ID id = graph.base_investigator_node_id();
 		for (const auto& investigator_node : graph.investigator_nodes()) {
 			std::cout << "\ti ";
 			print_id(id);
 			std::cout << ":" << std::endl;
-			print_investigator_node(investigator_node);
+			print_investigator_node(investigator_node, graph.map_node(id));
 			++id;
 		}
 	}
 }
 
-using wl::jid;
+static constexpr std::array<wl::MapNode,7> map_nodes = {
+	/*j001*/wl::MapNode{wl::j001_nbors},
+	/*j002*/wl::MapNode{wl::j002_nbors},
+	/*j003*/wl::MapNode{wl::j003_nbors},
+	/*j004*/wl::MapNode{wl::j004_nbors},
+	/*j005*/wl::MapNode{wl::j005_nbors},
+	/*j006*/wl::MapNode{wl::j006_nbors},
+	/*j007*/wl::MapNode{wl::j007_nbors}
+};
+
+static constexpr std::array<wl::JackNode,7> jack_nodes = {
+	/*j001*/wl::JackNode{},
+	/*j002*/wl::JackNode{},
+	/*j003*/wl::JackNode{},
+	/*j004*/wl::JackNode{wl::JackNode::NoEvidence{}},
+	/*j005*/wl::JackNode{},
+	/*j006*/wl::JackNode{},
+	/*j007*/wl::JackNode{}
+};
+
+static constexpr std::array<wl::InvestigatorNode,0> investigator_nodes = {
+};
 
 int main(int argc, char** argv) {
-	wl::MapGraph map_graph{
-		{
-		/*j001*/wl::JackNode{wl::j001_nbors},
-		/*j002*/wl::JackNode{wl::j002_nbors},
-		/*j003*/wl::JackNode{wl::j003_nbors},
-		/*j004*/wl::JackNode{wl::j004_nbors, wl::JackNode::NoEvidence{}},
-		/*j005*/wl::JackNode{wl::j005_nbors},
-		/*j006*/wl::JackNode{wl::j006_nbors},
-		/*j007*/wl::JackNode{wl::j007_nbors}
-		},
-		{}};
-
+	const wl::MapGraph map_graph{map_nodes, jack_nodes, investigator_nodes};
 	std::cout << "Hello Rigel!" << std::endl;
 	print_graph(map_graph);
 	return 0;

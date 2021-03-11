@@ -1,21 +1,84 @@
 #ifndef WL_H
 #define WL_H
 
+#include <cassert>
 #include <vector>
 #include <cstdint>
 #include <variant>
 #include <optional>
 #include <span>
+#include <algorithm>
 
 #include "tagged_id.h"
 
 namespace wl {
 
+class MapNode {
+	struct Tag{};
+public:
+	using ID = TaggedID<Tag, std::uint16_t>;
+
+private:
+	// neighbors must be specified in clockwise order
+	std::span<const ID> neighbors_{};
+
+	constexpr auto find_neighbor(ID nbor) const noexcept {
+		return std::find(neighbors_.cbegin(), neighbors_.cend(), nbor);
+	}
+
+public:
+	constexpr MapNode(std::span<const ID> nbors) noexcept : neighbors_{nbors} {}
+
+	constexpr std::span<const ID> neighbors() const noexcept { return neighbors_; }
+
+	constexpr std::optional<ID> neighbor_counter_clockwise_of(ID nbor) const noexcept {
+		auto nbor_itr = find_neighbor(nbor);
+		if (nbor_itr == neighbors_.cend()) {
+			return std::nullopt;
+		}
+		// now decrement by one, since neighbors are in clockwise order
+		if (nbor_itr == neighbors_.cbegin()) {
+			// note that we are guaranteed at least size() >= 1, since
+			// we found a the neighbour. Return last neighbour in list.
+			nbor_itr = (neighbors_.cend() - 1);
+		} else {
+			--nbor_itr;
+		}
+		return *nbor_itr;
+	}
+
+	constexpr std::optional<ID> neighbor_clockwise_of(ID nbor) const noexcept {
+		auto nbor_itr = find_neighbor(nbor);
+		if (nbor_itr == neighbors_.cend()) {
+			return std::nullopt;
+		}
+		// now increment by one, since neighbors are in clockwise order
+		++nbor_itr;
+		if (nbor_itr == neighbors_.cend()) {
+			// wrap around to beginning
+			nbor_itr = neighbors_.cbegin();
+		}
+		return *nbor_itr;
+	}
+};
+
+// converts 1-based user-facing ID to 0-based underlying ID
+constexpr MapNode::ID map_id(std::uint16_t label_id) noexcept {
+	assert(label_id > 0u);
+	return MapNode::ID{static_cast<std::uint16_t>(label_id - 1)};
+}
+
+// jid_from_label
+constexpr std::uint16_t map_id_to_label(MapNode::ID id) noexcept {
+	return static_cast<std::uint16_t>(id) + 1;
+}
+
 class JackNode {
 public:
+	static constexpr std::size_t num_nodes_total = 7u; // should be 188u;
+
 	struct JackTag{};
 	struct WaterBodyTag{};
-	using ID = TaggedID<JackTag>;
 	using WaterBodyID = TaggedID<WaterBodyTag>;
 
 	struct Normal{
@@ -47,24 +110,19 @@ public:
 	};
 private:
 	using Type = std::variant<Normal,NoEvidence,Water>;
-	Type                type_{ Normal{} };
-	std::span<const ID> neighbors_{};
+	Type        type_{ Normal{} };
+
 public:
-	constexpr JackNode(std::span<const ID> nbors) noexcept
-		: neighbors_{ nbors }
-		, type_{ Normal{} }
+	constexpr JackNode(Normal normal = Normal{}) noexcept
+		: type_{ std::move(normal) }
 	{}
 
-	constexpr JackNode(std::span<const ID> nbors,
-		     NoEvidence no_evidence) noexcept
-		: neighbors_{ nbors }
-		, type_{ std::move(no_evidence) }
+	constexpr JackNode(NoEvidence no_evidence) noexcept
+		: type_{ std::move(no_evidence) }
 	{}
 
-	constexpr JackNode(std::span<const ID> nbors,
-		     Water water) noexcept
-		: neighbors_{ nbors }
-		, type_{ std::move(water) }
+	constexpr JackNode(Water water) noexcept
+		: type_{ std::move(water) }
 	{}
 
 	constexpr bool can_drop_evidence() const {
@@ -82,43 +140,19 @@ public:
 				return t.water_body_id();	
 			}, type_);
 	}
-
-	constexpr std::span<const ID> neighbors() const noexcept { return neighbors_; }
 };
-
-// jid_from_label
-constexpr JackNode::ID jid(std::uint8_t label_id) noexcept {
-	return JackNode::ID{static_cast<std::uint8_t>(label_id - 1)};
-}
-
-// jid_from_label
-constexpr std::uint8_t jid_to_label(JackNode::ID id) noexcept {
-	return static_cast<std::uint8_t>(id) + 1;
-}
 
 class InvestigatorNode {
 public:
-	struct InvestigatorTag{};
-	using ID = TaggedID<InvestigatorTag>;
+	static constexpr std::size_t num_nodes_total = 0u; // so far
 
 private:
-	bool                          starting_position_ = false;
-	std::span<const ID>           neighbors_{};
-	std::span<const JackNode::ID> jack_node_neighbors_{};
+	bool starting_position_ = false;
+
 public:
-	constexpr InvestigatorNode(std::span<const ID> nbors,
-		                       std::span<const JackNode::ID> jack_nbors,
-		                       bool is_starting_pos = false) noexcept
-		: neighbors_{ nbors }
-		, jack_node_neighbors_{ jack_nbors }
-		, starting_position_{ is_starting_pos }
+	constexpr InvestigatorNode(bool is_starting_pos) noexcept
+		: starting_position_{ is_starting_pos }
 	{}
-
-	constexpr std::span<const ID> neighbors() const noexcept
-	{ return neighbors_; }
-
-	constexpr std::span<const JackNode::ID> jack_neighbors() const noexcept
-	{ return jack_node_neighbors_; }
 
 	constexpr bool is_starting_position() const noexcept {
 		return starting_position_;
@@ -126,19 +160,64 @@ public:
 };
 
 class MapGraph {
-	std::vector<JackNode>         jack_nodes_;
-	std::vector<InvestigatorNode> investigator_nodes_;
 public:
-	MapGraph(std::vector<JackNode> j_nodes,
-		     std::vector<InvestigatorNode> i_nodes)
-		: jack_nodes_{ std::move(j_nodes) }
-		, investigator_nodes_{ std::move(i_nodes) }
-	{}
+	static constexpr std::size_t num_jack_nodes = JackNode::num_nodes_total;
+	static constexpr std::size_t num_investigator_nodes = InvestigatorNode::num_nodes_total;
+	static constexpr std::size_t num_nodes_total = num_jack_nodes + num_investigator_nodes;
 
-	std::span<const JackNode> jack_nodes() const noexcept
+private:
+	std::span<const MapNode, num_nodes_total>                 map_nodes_;
+	std::span<const JackNode, num_jack_nodes>                 jack_nodes_;
+	std::span<const InvestigatorNode, num_investigator_nodes> investigator_nodes_;
+
+public:
+	constexpr MapGraph(std::span<const MapNode, num_nodes_total> m_nodes,
+		               std::span<const JackNode, num_jack_nodes> j_nodes,
+		               std::span<const InvestigatorNode, num_investigator_nodes> i_nodes) noexcept
+		: map_nodes_{ m_nodes }
+		, jack_nodes_{ j_nodes }
+		, investigator_nodes_{ i_nodes }
+	{
+		// TODO: check map validity?
+	}
+
+	constexpr MapNode::ID base_jack_node_id() const noexcept { return MapNode::ID{0u}; }
+	constexpr MapNode::ID base_investigator_node_id() const noexcept {
+		static_assert(num_jack_nodes <= std::numeric_limits<std::uint16_t>::max());
+		return MapNode::ID{static_cast<std::uint16_t>(num_jack_nodes)};
+	}
+
+	constexpr const MapNode& map_node(MapNode::ID id) const noexcept {
+		assert(static_cast<std::size_t>(id) < num_nodes_total);
+		return map_nodes_[static_cast<std::size_t>(id)];
+	}
+
+	constexpr bool is_jack_node(MapNode::ID id) const noexcept {
+		return static_cast<std::size_t>(id) < num_jack_nodes;
+	}
+
+	// REQUIRED: is_jack_node(id) is true
+	constexpr const JackNode& jack_node(MapNode::ID id) const noexcept {
+		assert(is_jack_node(id));
+		return jack_nodes_[static_cast<std::size_t>(id)];
+	}
+
+	// REQUIRED: is_jack_node(id) is false
+	constexpr const InvestigatorNode& investigator_node(MapNode::ID id) const noexcept {
+		assert(!is_jack_node(id));
+		const std::size_t investigator_node_index =
+			static_cast<std::size_t>(id) - static_cast<std::size_t>(base_investigator_node_id());
+		assert(investigator_node_index < num_investigator_nodes);
+		return investigator_nodes_[investigator_node_index];
+	}
+
+	std::span<const MapNode, num_nodes_total> map_nodes() const noexcept
+	{ return map_nodes_; }
+
+	std::span<const JackNode, num_jack_nodes> jack_nodes() const noexcept
 	{ return jack_nodes_; }
 
-	std::span<const InvestigatorNode> investigator_nodes() const noexcept
+	std::span<const InvestigatorNode, num_investigator_nodes> investigator_nodes() const noexcept
 	{ return investigator_nodes_; }
 };
 

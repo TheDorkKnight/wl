@@ -6,28 +6,26 @@
 
 namespace wl {
 
-static constexpr std::array<JackNode::ID, 9> j001_nbors = {
-	jid(2u), jid(8u), jid(9u), jid(10u), jid(11u), jid(12u), jid(14u), jid(28u),
-	jid(29u)};
+static constexpr std::array<MapNode::ID, 2> j001_nbors = {
+	map_id(189u), map_id(190u) };
 
-static constexpr std::array<JackNode::ID, 8> j002_nbors = {
-	jid(1u), jid(3u), jid(9u), jid(11u), jid(12u), jid(14u), jid(16u), jid(17u)};
+static constexpr std::array<MapNode::ID, 3> j002_nbors = {
+	map_id(192u), map_id(193u), map_id(194u) };
 
-static constexpr std::array<JackNode::ID, 10> j003_nbors = {
-	jid(2u), jid(4u), jid(16u), jid(17u), jid(18u), jid(19u), jid(20u), jid(21u),
-	jid(37u), jid(38u)};
+static constexpr std::array<MapNode::ID, 3> j003_nbors = {
+	map_id(195u), map_id(197u), map_id(196u) };
 
-static constexpr std::array<JackNode::ID, 6> j004_nbors = {
-	jid(3u), jid(5u), jid(19u), jid(20u), jid(21u), jid(38u)};
+static constexpr std::array<MapNode::ID, 2> j004_nbors = {
+	map_id(197u), map_id(198u) };
 
-static constexpr std::array<JackNode::ID, 4> j005_nbors = {
-	jid(4u), jid(20u), jid(22u), jid(23u)};
+static constexpr std::array<MapNode::ID, 2> j005_nbors = {
+	map_id(198u), map_id(199u) };
 
-static constexpr std::array<JackNode::ID, 4> j006_nbors = {
-	jid(23u), jid(24u), jid(25u), jid(45u)};
+static constexpr std::array<MapNode::ID, 2> j006_nbors = {
+	map_id(200u), map_id(201u) };
 
-static constexpr std::array<JackNode::ID, 4> j007_nbors = {
-	jid(25u), jid(26u), jid(27u), jid(45u)};
+static constexpr std::array<MapNode::ID, 2> j007_nbors = {
+	map_id(202u), map_id(204u) };
 
 } // namespace wl
 
