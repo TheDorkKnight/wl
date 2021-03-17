@@ -42,6 +42,11 @@ TEST(MapNode, neighbor_clockwise) {
 		}
 		EXPECT_EQ(*expected_clockwise_nbor, *actual_clockwise_nbor);
 	}
+
+	// test that a node which is not actually a neighbor of node 2
+	// has no clockwise neighbor
+	const auto clockwise_of_1 = node_2.neighbor_clockwise_of(wl::map_id(1u));
+	EXPECT_FALSE(clockwise_of_1.has_value());
 }
 
 TEST(MapNode, neighbor_counter_clockwise) {
@@ -81,4 +86,9 @@ TEST(MapNode, neighbor_counter_clockwise) {
 		}
 		EXPECT_EQ(*expected_counter_clockwise_nbor, *actual_counter_clockwise_nbor);
 	}
+
+	// test that a node which is not actually a neighbor of node 2
+	// has no counter-clockwise neighbor
+	const auto clockwise_of_3 = node_2.neighbor_clockwise_of(wl::map_id(3u));
+	EXPECT_FALSE(clockwise_of_3.has_value());
 }
