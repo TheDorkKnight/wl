@@ -10,7 +10,7 @@ namespace wl {
 
 static constexpr JackNode::WaterBodyID thames_id = JackNode::WaterBodyID{ 0u };
 
-static constexpr std::array<MapNode,70> map_nodes = {
+static constexpr std::array<MapNode,80> map_nodes = {
 	/*j000*/MapNode{j000_nbors}, // aka j189
 	/*j001*/MapNode{j001_nbors},
 	/*j002*/MapNode{j002_nbors},
@@ -80,10 +80,20 @@ static constexpr std::array<MapNode,70> map_nodes = {
 	/*j066*/MapNode{j066_nbors},
 	/*j067*/MapNode{j067_nbors},
 	/*j068*/MapNode{j068_nbors},
-	/*j069*/MapNode{j069_nbors}
+	/*j069*/MapNode{j069_nbors},
+	/*j070*/MapNode{j070_nbors}, // 70s
+	/*j071*/MapNode{j071_nbors},
+	/*j072*/MapNode{j072_nbors},
+	/*j073*/MapNode{j073_nbors},
+	/*j074*/MapNode{j074_nbors},
+	/*j075*/MapNode{j075_nbors},
+	/*j076*/MapNode{j076_nbors},
+	/*j077*/MapNode{j077_nbors},
+	/*j078*/MapNode{j078_nbors},
+	/*j079*/MapNode{j079_nbors}
 };
 
-static constexpr std::array<JackNode,70> jack_nodes = {
+static constexpr std::array<JackNode,80> jack_nodes = {
 	/*j000*/JackNode{}, // aka j189
 	/*j001*/JackNode{},
 	/*j002*/JackNode{},
@@ -153,7 +163,17 @@ static constexpr std::array<JackNode,70> jack_nodes = {
 	/*j066*/JackNode{JackNode::Water{thames_id}},
 	/*j067*/JackNode{},
 	/*j068*/JackNode{},
-	/*j069*/JackNode{}
+	/*j069*/JackNode{},
+	/*j070*/JackNode{JackNode::NoEvidence{}}, // 70s
+	/*j071*/JackNode{},
+	/*j072*/JackNode{},
+	/*j073*/JackNode{JackNode::NoEvidence{}},
+	/*j074*/JackNode{JackNode::NoEvidence{}},
+	/*j075*/JackNode{JackNode::NoEvidence{}},
+	/*j076*/JackNode{JackNode::NoEvidence{}},
+	/*j077*/JackNode{},
+	/*j078*/JackNode{},
+	/*j079*/JackNode{}
 };
 
 static constexpr std::span<const InvestigatorNode, 0> investigator_nodes;

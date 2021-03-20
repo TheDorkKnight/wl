@@ -72,7 +72,7 @@ constexpr std::uint16_t map_id_to_label(MapNode::ID id) noexcept {
 
 class JackNode {
 public:
-	static constexpr std::size_t num_nodes_total = 70u; // should be 189u;
+	static constexpr std::size_t num_nodes_total = 80u; // should be 189u;
 
 	struct JackTag{};
 	struct WaterBodyTag{};
