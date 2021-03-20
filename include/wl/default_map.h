@@ -8,24 +8,66 @@
 
 namespace wl {
 
-static constexpr std::array<MapNode,7> map_nodes = {
+static constexpr std::array<MapNode,28> map_nodes = {
+	/*j000*/MapNode{j000_nbors}, // aka j189
 	/*j001*/MapNode{j001_nbors},
 	/*j002*/MapNode{j002_nbors},
 	/*j003*/MapNode{j003_nbors},
 	/*j004*/MapNode{j004_nbors},
 	/*j005*/MapNode{j005_nbors},
 	/*j006*/MapNode{j006_nbors},
-	/*j007*/MapNode{j007_nbors}
+	/*j007*/MapNode{j007_nbors},
+	/*j008*/MapNode{j008_nbors},
+	/*j009*/MapNode{j009_nbors},
+	/*j010*/MapNode{j010_nbors}, // 10s
+	/*j011*/MapNode{j011_nbors},
+	/*j012*/MapNode{j012_nbors},
+	/*j013*/MapNode{j013_nbors},
+	/*j014*/MapNode{j014_nbors},
+	/*j015*/MapNode{j015_nbors},
+	/*j016*/MapNode{j016_nbors},
+	/*j017*/MapNode{j017_nbors},
+	/*j018*/MapNode{j018_nbors},
+	/*j019*/MapNode{j019_nbors},
+	/*j020*/MapNode{j020_nbors}, // 20s
+	/*j021*/MapNode{j021_nbors},
+	/*j022*/MapNode{j022_nbors},
+	/*j023*/MapNode{j023_nbors},
+	/*j024*/MapNode{j024_nbors},
+	/*j025*/MapNode{j025_nbors},
+	/*j026*/MapNode{j026_nbors},
+	/*j027*/MapNode{j027_nbors}
 };
 
-static constexpr std::array<JackNode,7> jack_nodes = {
+static constexpr std::array<JackNode,28> jack_nodes = {
+	/*j000*/JackNode{}, // aka j189
 	/*j001*/JackNode{},
 	/*j002*/JackNode{},
 	/*j003*/JackNode{},
 	/*j004*/JackNode{JackNode::NoEvidence{}},
 	/*j005*/JackNode{},
 	/*j006*/JackNode{},
-	/*j007*/JackNode{}
+	/*j007*/JackNode{},
+	/*j008*/JackNode{},
+	/*j009*/JackNode{},
+	/*j010*/JackNode{}, // 10s
+	/*j011*/JackNode{},
+	/*j012*/JackNode{},
+	/*j013*/JackNode{},
+	/*j014*/JackNode{},
+	/*j015*/JackNode{},
+	/*j016*/JackNode{},
+	/*j017*/JackNode{},
+	/*j018*/JackNode{},
+	/*j019*/JackNode{JackNode::NoEvidence{}},
+	/*j020*/JackNode{JackNode::NoEvidence{}}, // 20s
+	/*j021*/JackNode{JackNode::NoEvidence{}},
+	/*j022*/JackNode{JackNode::NoEvidence{}},
+	/*j023*/JackNode{},
+	/*j024*/JackNode{},
+	/*j025*/JackNode{},
+	/*j026*/JackNode{},
+	/*j027*/JackNode{}
 };
 
 static constexpr std::span<const InvestigatorNode, 0> investigator_nodes;
