@@ -72,7 +72,7 @@ constexpr std::uint16_t map_id_to_label(MapNode::ID id) noexcept {
 
 class JackNode {
 public:
-	static constexpr std::size_t num_nodes_total = 60u; // should be 189u;
+	static constexpr std::size_t num_nodes_total = 70u; // should be 189u;
 
 	struct JackTag{};
 	struct WaterBodyTag{};
@@ -97,12 +97,17 @@ public:
 	class Water {
 		WaterBodyID water_body_id_{ static_cast<std::uint8_t>(0u) };
 	public:
+		constexpr Water(WaterBodyID wbody_id) noexcept
+			: water_body_id_{ wbody_id }
+		{}
+
 		constexpr bool can_drop_evidence() const noexcept {
 			return false;
 		}
 
+		constexpr WaterBodyID id() const noexcept { return water_body_id_; }
 		constexpr std::optional<WaterBodyID> water_body_id() const noexcept {
-			return water_body_id_;
+			return id();
 		}
 	};
 private:
