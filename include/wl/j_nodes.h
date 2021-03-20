@@ -158,6 +158,36 @@ static constexpr std::array<MapNode::ID, 2> j048_nbors = {
 static constexpr std::array<MapNode::ID, 2> j049_nbors = {
 	map_id(234u), map_id(235u) };
 
+static constexpr std::array<MapNode::ID, 3> j050_nbors = {
+	map_id(235u), map_id(252u), map_id(251u) };
+
+static constexpr std::array<MapNode::ID, 4> j051_nbors = {
+	map_id(235u), map_id(236u), map_id(254u), map_id(253u) };
+
+static constexpr std::array<MapNode::ID, 3> j052_nbors = {
+	map_id(254u), map_id(266u), map_id(265u) };
+
+static constexpr std::array<MapNode::ID, 3> j053_nbors = {
+	map_id(237u), map_id(255u), map_id(254u) };
+
+static constexpr std::array<MapNode::ID, 3> j054_nbors = {
+	map_id(238u), map_id(239u), map_id(255u) };
+
+static constexpr std::array<MapNode::ID, 3> j055_nbors = {
+	map_id(255u), map_id(267u), map_id(266u) };
+
+static constexpr std::array<MapNode::ID, 3> j056_nbors = {
+	map_id(241u), map_id(242u), map_id(257u) };
+
+static constexpr std::array<MapNode::ID, 2> j057_nbors = {
+	map_id(242u), map_id(258u) };
+
+static constexpr std::array<MapNode::ID, 3> j058_nbors = {
+	map_id(243u), map_id(260u), map_id(259u) };
+
+static constexpr std::array<MapNode::ID, 3> j059_nbors = {
+	map_id(244u), map_id(245u), map_id(260u) };
+
 } // namespace wl
 
 #endif
