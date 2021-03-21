@@ -8,9 +8,10 @@
 
 namespace wl {
 
-static constexpr JackNode::WaterBodyID thames_id = JackNode::WaterBodyID{ 0u };
+static constexpr JackNode::WaterBodyID thames_upper_right_id = JackNode::WaterBodyID{ 0u };
+static constexpr JackNode::WaterBodyID thames_middle_id = JackNode::WaterBodyID{ 1u };
 
-static constexpr std::array<MapNode,90> map_nodes = {
+static constexpr std::array<MapNode,100> map_nodes = {
 	/*j000*/MapNode{j000_nbors}, // aka j189
 	/*j001*/MapNode{j001_nbors},
 	/*j002*/MapNode{j002_nbors},
@@ -100,10 +101,20 @@ static constexpr std::array<MapNode,90> map_nodes = {
 	/*j086*/MapNode{j086_nbors},
 	/*j087*/MapNode{j087_nbors},
 	/*j088*/MapNode{j088_nbors},
-	/*j089*/MapNode{j089_nbors}
+	/*j089*/MapNode{j089_nbors},
+	/*j090*/MapNode{j090_nbors}, // 90s
+	/*j091*/MapNode{j091_nbors},
+	/*j092*/MapNode{j092_nbors},
+	/*j093*/MapNode{j093_nbors},
+	/*j094*/MapNode{j094_nbors},
+	/*j095*/MapNode{j095_nbors},
+	/*j096*/MapNode{j096_nbors},
+	/*j097*/MapNode{j097_nbors},
+	/*j098*/MapNode{j098_nbors},
+	/*j099*/MapNode{j099_nbors}
 };
 
-static constexpr std::array<JackNode,90> jack_nodes = {
+static constexpr std::array<JackNode,100> jack_nodes = {
 	/*j000*/JackNode{}, // aka j189
 	/*j001*/JackNode{},
 	/*j002*/JackNode{},
@@ -170,7 +181,7 @@ static constexpr std::array<JackNode,90> jack_nodes = {
 	/*j063*/JackNode{},
 	/*j064*/JackNode{},
 	/*j065*/JackNode{},
-	/*j066*/JackNode{JackNode::Water{thames_id}},
+	/*j066*/JackNode{JackNode::Water{thames_upper_right_id}},
 	/*j067*/JackNode{},
 	/*j068*/JackNode{},
 	/*j069*/JackNode{},
@@ -184,7 +195,7 @@ static constexpr std::array<JackNode,90> jack_nodes = {
 	/*j077*/JackNode{},
 	/*j078*/JackNode{},
 	/*j079*/JackNode{},
-	/*j080*/JackNode{JackNode::Water{thames_id}}, // 80s
+	/*j080*/JackNode{JackNode::Water{thames_middle_id}}, // 80s
 	/*j081*/JackNode{JackNode::NoEvidence{}},
 	/*j082*/JackNode{JackNode::NoEvidence{}},
 	/*j083*/JackNode{JackNode::NoEvidence{}},
@@ -193,7 +204,17 @@ static constexpr std::array<JackNode,90> jack_nodes = {
 	/*j086*/JackNode{JackNode::NoEvidence{}},
 	/*j087*/JackNode{JackNode::NoEvidence{}},
 	/*j088*/JackNode{JackNode::NoEvidence{}},
-	/*j089*/JackNode{JackNode::NoEvidence{}}
+	/*j089*/JackNode{JackNode::NoEvidence{}},
+	/*j090*/JackNode{JackNode::NoEvidence{}}, // 90s
+	/*j091*/JackNode{JackNode::NoEvidence{}},
+	/*j092*/JackNode{JackNode::NoEvidence{}},
+	/*j093*/JackNode{JackNode::NoEvidence{}},
+	/*j094*/JackNode{JackNode::NoEvidence{}},
+	/*j095*/JackNode{JackNode::Water{thames_middle_id}},
+	/*j096*/JackNode{JackNode::Water{thames_middle_id}},
+	/*j097*/JackNode{JackNode::NoEvidence{}},
+	/*j098*/JackNode{JackNode::Water{thames_upper_right_id}},
+	/*j099*/JackNode{JackNode::NoEvidence{}}
 };
 
 static constexpr std::span<const InvestigatorNode, 0> investigator_nodes;
