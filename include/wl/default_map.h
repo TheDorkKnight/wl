@@ -5,6 +5,7 @@
 #include <span>
 #include <wl/wl.h>
 #include <wl/j_nodes.h>
+#include <wl/i_nodes.h>
 
 namespace wl {
 
@@ -197,7 +198,18 @@ static constexpr std::array<MapNode,MapGraph::num_nodes_total> map_nodes = {
 	/*j185*/MapNode{j185_nbors},
 	/*j186*/MapNode{j186_nbors},
 	/*j187*/MapNode{j187_nbors},
-	/*j188*/MapNode{j188_nbors}
+	/*j188*/MapNode{j188_nbors},
+	/*i189*/MapNode{i189_nbors}, // start of i nodes
+	/*i190*/MapNode{i190_nbors}, // 190s
+	/*i191*/MapNode{i191_nbors},
+	/*i192*/MapNode{i192_nbors},
+	/*i193*/MapNode{i193_nbors},
+	/*i194*/MapNode{i194_nbors},
+	/*i195*/MapNode{i195_nbors},
+	/*i196*/MapNode{i196_nbors},
+	/*i197*/MapNode{i197_nbors},
+	/*i198*/MapNode{i198_nbors},
+	/*i199*/MapNode{i199_nbors}
 };
 
 static constexpr std::array<JackNode,JackNode::num_nodes_total> jack_nodes = {
@@ -392,7 +404,19 @@ static constexpr std::array<JackNode,JackNode::num_nodes_total> jack_nodes = {
 	/*j188*/JackNode{JackNode::Type::Normal}
 };
 
-static constexpr std::span<const InvestigatorNode, InvestigatorNode::num_nodes_total> investigator_nodes;
+static constexpr std::array<InvestigatorNode, InvestigatorNode::num_nodes_total> investigator_nodes = {
+	/*i189*/InvestigatorNode{},
+	/*i190*/InvestigatorNode{}, // 190s
+	/*i191*/InvestigatorNode{},
+	/*i192*/InvestigatorNode{},
+	/*i193*/InvestigatorNode{},
+	/*i194*/InvestigatorNode{},
+	/*i195*/InvestigatorNode{},
+	/*i196*/InvestigatorNode{},
+	/*i197*/InvestigatorNode{},
+	/*i198*/InvestigatorNode{},
+	/*i199*/InvestigatorNode{}
+};
 
 constexpr MapGraph default_map() noexcept {
 	return MapGraph{map_nodes, jack_nodes, investigator_nodes};

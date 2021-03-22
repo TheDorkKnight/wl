@@ -121,14 +121,19 @@ public:
 
 class InvestigatorNode {
 public:
-	static constexpr std::size_t num_nodes_total = 0u; // so far
+	static constexpr std::size_t num_nodes_total = 11u; // so far
 
 private:
 	bool starting_position_ = false;
 
 public:
-	constexpr InvestigatorNode(bool is_starting_pos) noexcept
-		: starting_position_{ is_starting_pos }
+	struct StartPosition{};
+
+	constexpr InvestigatorNode() noexcept
+		: starting_position_{ false }
+	{}
+	constexpr InvestigatorNode(StartPosition) noexcept
+		: starting_position_{ true }
 	{}
 
 	constexpr bool is_starting_position() const noexcept {

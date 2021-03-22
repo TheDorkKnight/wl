@@ -49,8 +49,10 @@ void print_investigator_node(const wl::InvestigatorNode& investigator_node,
 	                         const wl::MapNode& map_node) {
 	std::cout << "\t\tneighbors: ";
 	print_adjacency_list(map_node.neighbors());
-	std::cout << std::endl << "\t\tcan start: " <<
-		(investigator_node.is_starting_position() ? "true" : "false") << std::endl;
+	std::cout << std::endl;
+	if (investigator_node.is_starting_position()) {
+		std::cout << "\t\tcan start: true" << std::endl;
+	}
 }
 
 void print_graph(const wl::MapGraph& graph) {
