@@ -2,7 +2,6 @@
 #define WL_BLOCK_ITERATOR_H
 
 #include <iterator>
-#include <array>
 #include <wl/wl.h>
 
 namespace wl {
@@ -28,14 +27,33 @@ public:
 	using reference = value_type;
 	using iterator_category = std::input_iterator_tag;
 
+	struct AsBeginIterator{};
+
+	ClockwiseBlockIterator() noexcept
+		: last_node_id_{ 0u }
+		, current_node_id_{ 0u }
+		, map_graph_{ nullptr }
+		, as_begin_{ false }
+	{}
+
 	ClockwiseBlockIterator(MapNode::ID prev_neighbor_node_id, 
 		                   MapNode::ID start_node_id,
 		                   const MapGraph& graph,
-		                   bool as_begin_iterator) noexcept
+		                   AsBeginIterator) noexcept
 		: last_node_id_{ prev_neighbor_node_id }
 		, current_node_id_{ start_node_id }
 		, map_graph_{&graph}
-		, as_begin_{ as_begin_iterator }
+		, as_begin_{ true }
+	{
+		assert(find_adjacency(start_node_id, prev_neighbor_node_id, graph) != map_graph_->map_node(start_node).neighbors().end());
+	}
+	ClockwiseBlockIterator(MapNode::ID prev_neighbor_node_id,
+		MapNode::ID start_node_id,
+		const MapGraph& graph) noexcept
+		: last_node_id_{ prev_neighbor_node_id }
+		, current_node_id_{ start_node_id }
+		, map_graph_{ &graph }
+		, as_begin_{ false }
 	{
 		assert(find_adjacency(start_node_id, prev_neighbor_node_id, graph) != map_graph_->map_node(start_node).neighbors().end());
 	}
@@ -90,6 +108,8 @@ public:
 			   (current_node_id_ != other.current_node_id_) ||
 			   (as_begin_ != other.as_begin_);
 	}
+
+	const MapGraph& get_graph() const noexcept { return *map_graph_; }
 };
 
 class ClockwiseBlock {
@@ -98,13 +118,32 @@ class ClockwiseBlock {
 public:
 	using iterator = ClockwiseBlockIterator;
 
+	ClockwiseBlock()
+		: begin_{}
+		, end_{}
+	{}
 	ClockwiseBlock(MapNode::ID prev_neighbor, MapNode::ID starting_node, const MapGraph& graph)
-		: begin_{prev_neighbor, starting_node,  graph, true}
-		, end_{prev_neighbor, starting_node, graph, false}
+		: begin_{ prev_neighbor, starting_node,  graph, iterator::AsBeginIterator{} }
+		, end_{prev_neighbor, starting_node, graph }
 	{}
 
 	iterator begin() const { return begin_; }
 	iterator end() const { return end_; }
+
+	bool is_water_block() const {
+		for (auto itr = begin_; itr != end_; ++itr) {
+			const MapNode::ID node_id = *itr;
+			const auto& graph = itr.get_graph();
+			if (!graph.is_jack_node(node_id)) {
+				continue;
+			}
+			const auto& j_node = graph.jack_node(node_id);
+			if (j_node.is_water()) {
+				return true;
+			}
+		}
+		return false;
+	}
 };
 
 } // namespace wl

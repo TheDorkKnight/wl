@@ -8,6 +8,8 @@ const wl::MapGraph default_map = wl::default_map();
 
 TEST(ClockwiseBlockIterator, iterate_around_first_block) {
 	const wl::ClockwiseBlock first_block{ wl::map_id(189u), wl::map_id(1u), default_map };
+	EXPECT_FALSE(first_block.is_water_block());
+
 	auto itr = first_block.begin();
 	const auto end = first_block.end();
 
