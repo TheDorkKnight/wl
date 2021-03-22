@@ -94,7 +94,7 @@ constexpr std::uint16_t map_id_to_label(MapNode::ID id) noexcept {
 
 class JackNode {
 public:
-	static constexpr std::size_t num_nodes_total = 180u; // should be 189u;
+	static constexpr std::size_t num_nodes_total = 189u;
 
 	enum class Type : std::uint8_t {
 		Normal,
