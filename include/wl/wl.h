@@ -62,20 +62,17 @@ public:
 	}
 };
 
-// converts 1-based user-facing ID to 0-based underlying ID
 constexpr MapNode::ID map_id(std::uint16_t label_id) noexcept {
-	assert(label_id > 0u);
-	return MapNode::ID{static_cast<std::uint16_t>(label_id - 1)};
+	return MapNode::ID{static_cast<std::uint16_t>(label_id)};
 }
 
-// jid_from_label
 constexpr std::uint16_t map_id_to_label(MapNode::ID id) noexcept {
-	return static_cast<std::uint16_t>(id) + 1;
+	return static_cast<std::uint16_t>(id);
 }
 
 class JackNode {
 public:
-	static constexpr std::size_t num_nodes_total = 7u; // should be 188u;
+	static constexpr std::size_t num_nodes_total = 100u; // should be 189u;
 
 	struct JackTag{};
 	struct WaterBodyTag{};
@@ -100,12 +97,17 @@ public:
 	class Water {
 		WaterBodyID water_body_id_{ static_cast<std::uint8_t>(0u) };
 	public:
+		constexpr Water(WaterBodyID wbody_id) noexcept
+			: water_body_id_{ wbody_id }
+		{}
+
 		constexpr bool can_drop_evidence() const noexcept {
 			return false;
 		}
 
+		constexpr WaterBodyID id() const noexcept { return water_body_id_; }
 		constexpr std::optional<WaterBodyID> water_body_id() const noexcept {
-			return water_body_id_;
+			return id();
 		}
 	};
 private:
