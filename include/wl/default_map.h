@@ -118,7 +118,17 @@ static constexpr std::array<MapNode,MapGraph::num_nodes_total> map_nodes = {
 	/*j106*/MapNode{j106_nbors},
 	/*j107*/MapNode{j107_nbors},
 	/*j108*/MapNode{j108_nbors},
-	/*j109*/MapNode{j109_nbors}
+	/*j109*/MapNode{j109_nbors},
+	/*j110*/MapNode{j110_nbors}, // 110s
+	/*j111*/MapNode{j111_nbors},
+	/*j112*/MapNode{j112_nbors},
+	/*j113*/MapNode{j113_nbors},
+	/*j114*/MapNode{j114_nbors},
+	/*j115*/MapNode{j115_nbors},
+	/*j116*/MapNode{j116_nbors},
+	/*j117*/MapNode{j117_nbors},
+	/*j118*/MapNode{j118_nbors},
+	/*j119*/MapNode{j119_nbors}
 };
 
 static constexpr std::array<JackNode,JackNode::num_nodes_total> jack_nodes = {
@@ -231,7 +241,17 @@ static constexpr std::array<JackNode,JackNode::num_nodes_total> jack_nodes = {
 	/*j106*/JackNode{JackNode::Type::NoEvidence},
 	/*j107*/JackNode{JackNode::Type::NoEvidence},
 	/*j108*/JackNode{JackNode::Type::NoEvidence},
-	/*j109*/JackNode{JackNode::Type::NoEvidence}
+	/*j109*/JackNode{JackNode::Type::NoEvidence},
+	/*j110*/JackNode{JackNode::Type::Water}, // 110s
+	/*j111*/JackNode{JackNode::Type::Water},
+	/*j112*/JackNode{JackNode::Type::NoEvidence},
+	/*j113*/JackNode{JackNode::Type::Water},
+	/*j114*/JackNode{JackNode::Type::NoEvidence},
+	/*j115*/JackNode{JackNode::Type::NoEvidence},
+	/*j116*/JackNode{JackNode::Type::NoEvidence},
+	/*j117*/JackNode{JackNode::Type::Normal},
+	/*j118*/JackNode{JackNode::Type::NoEvidence},
+	/*j119*/JackNode{JackNode::Type::Normal}
 };
 
 static constexpr std::span<const InvestigatorNode, InvestigatorNode::num_nodes_total> investigator_nodes;
