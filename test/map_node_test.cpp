@@ -29,18 +29,18 @@ TEST(MapNode, neighbor_clockwise) {
 	};
 
 	EXPECT_EQ(3u, node_2.neighbors().size());
-	for (const wl::MapNode::ID nbor_id : node_2.neighbors()) {
-		const auto expected_clockwise_nbor = expected_after(nbor_id);
-		if (!expected_clockwise_nbor.has_value()) {
-			FAIL() << "got unexpected neighbor " << static_cast<std::size_t>(nbor_id);
+	for (const wl::MapNode::Adjacency nbor_adjacency : node_2.neighbors()) {
+		const auto expected_clockwise_nbor_id = expected_after(nbor_adjacency.id());
+		if (!expected_clockwise_nbor_id.has_value()) {
+			FAIL() << "got unexpected neighbor " << static_cast<std::size_t>(nbor_adjacency.id());
 			continue;
 		}
-		const auto actual_clockwise_nbor = node_2.neighbor_clockwise_of(nbor_id);
+		const auto actual_clockwise_nbor = node_2.neighbor_clockwise_of(nbor_adjacency.id());
 		if (!actual_clockwise_nbor.has_value()) {
-			FAIL() << "neighbor " << static_cast<std::size_t>(nbor_id) << " had no clockwise neighbor";
+			FAIL() << "neighbor " << static_cast<std::size_t>(nbor_adjacency.id()) << " had no clockwise neighbor";
 			continue;
 		}
-		EXPECT_EQ(*expected_clockwise_nbor, *actual_clockwise_nbor);
+		EXPECT_EQ(*expected_clockwise_nbor_id, actual_clockwise_nbor->id());
 	}
 
 	// test that a node which is not actually a neighbor of node 2
@@ -73,22 +73,77 @@ TEST(MapNode, neighbor_counter_clockwise) {
 	};
 
 	EXPECT_EQ(3u, node_2.neighbors().size());
-	for (const wl::MapNode::ID nbor_id : node_2.neighbors()) {
-		const auto expected_counter_clockwise_nbor = expected_after(nbor_id);
-		if (!expected_counter_clockwise_nbor.has_value()) {
-			FAIL() << "got unexpected neighbor " << static_cast<std::size_t>(nbor_id);
+	for (const wl::MapNode::Adjacency nbor_adjacency : node_2.neighbors()) {
+		const auto expected_counter_clockwise_nbor_id = expected_after(nbor_adjacency.id());
+		if (!expected_counter_clockwise_nbor_id.has_value()) {
+			FAIL() << "got unexpected neighbor " << static_cast<std::size_t>(nbor_adjacency.id());
 			continue;
 		}
-		const auto actual_counter_clockwise_nbor = node_2.neighbor_counter_clockwise_of(nbor_id);
+		const auto actual_counter_clockwise_nbor = node_2.neighbor_counter_clockwise_of(nbor_adjacency.id());
 		if (!actual_counter_clockwise_nbor.has_value()) {
-			FAIL() << "neighbor " << static_cast<std::size_t>(nbor_id) << " had no counter-clockwise neighbor";
+			FAIL() << "neighbor " << static_cast<std::size_t>(nbor_adjacency.id()) << " had no counter-clockwise neighbor";
 			continue;
 		}
-		EXPECT_EQ(*expected_counter_clockwise_nbor, *actual_counter_clockwise_nbor);
+		EXPECT_EQ(*expected_counter_clockwise_nbor_id, actual_counter_clockwise_nbor->id());
 	}
 
 	// test that a node which is not actually a neighbor of node 2
 	// has no counter-clockwise neighbor
 	const auto clockwise_of_3 = node_2.neighbor_clockwise_of(wl::map_id(3u));
 	EXPECT_FALSE(clockwise_of_3.has_value());
+}
+
+TEST(MapNode, default_adjacency_is_not_over_water) {
+	constexpr wl::MapNode::Adjacency default_adjacency{ wl::map_id(0) };
+	static_assert(!default_adjacency.is_water_border());
+	EXPECT_FALSE(default_adjacency.is_water_border());
+}
+
+TEST(MapNode, sixty_six_to_ninety_eight_water_border) {
+	constexpr auto k_66 = wl::map_id(66u);
+	constexpr auto k_98 = wl::map_id(98u);
+
+
+	const auto is_water_adjacency =
+		[](const wl::MapNode::Adjacency& adjacency) noexcept -> bool {
+			return adjacency.is_water_border();
+		};
+
+	{
+		// Find the water border
+		const auto& node_66 = default_map.map_node(k_66);
+		const auto itr = std::find_if(node_66.neighbors().begin(),
+			                          node_66.neighbors().end(),
+			                          is_water_adjacency);
+		ASSERT_NE(itr, node_66.neighbors().end());
+
+		const wl::MapNode::Adjacency& water_adjacency = *itr;
+		EXPECT_TRUE(water_adjacency.is_water_border());
+		EXPECT_EQ(k_98, water_adjacency.id());
+
+		// Make sure there is only 1 water border
+		const auto next_water_border_itr = std::find_if(itr + 1,
+			                                            node_66.neighbors().end(),
+			                                            is_water_adjacency);
+		EXPECT_EQ(next_water_border_itr, node_66.neighbors().end());
+	}
+
+	{
+		// Find the water border
+		const auto& node_98 = default_map.map_node(k_98);
+		const auto itr = std::find_if(node_98.neighbors().begin(),
+			node_98.neighbors().end(),
+			is_water_adjacency);
+		ASSERT_NE(itr, node_98.neighbors().end());
+
+		const wl::MapNode::Adjacency& water_adjacency = *itr;
+		EXPECT_TRUE(water_adjacency.is_water_border());
+		EXPECT_EQ(k_66, water_adjacency.id());
+
+		// Make sure there is only 1 water border
+		const auto next_water_border_itr = std::find_if(itr + 1,
+			node_98.neighbors().end(),
+			is_water_adjacency);
+		EXPECT_EQ(next_water_border_itr, node_98.neighbors().end());
+	}
 }
