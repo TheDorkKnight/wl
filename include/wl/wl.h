@@ -75,14 +75,12 @@ public:
 	static constexpr std::size_t num_nodes_total = 100u; // should be 189u;
 
 	struct JackTag{};
-	struct WaterBodyTag{};
-	using WaterBodyID = TaggedID<WaterBodyTag>;
 
 	struct Normal{
 		constexpr bool can_drop_evidence() const noexcept {
 			return true;
 		}
-		constexpr std::optional<WaterBodyID> water_body_id() const noexcept {
+		constexpr std::optional<MapNode::ID> water_border_neighbor() const noexcept {
 			return std::nullopt;
 		}
 	};
@@ -90,24 +88,29 @@ public:
 		constexpr bool can_drop_evidence() const noexcept {
 			return false;
 		}
-		constexpr std::optional<WaterBodyID> water_body_id() const noexcept {
+		constexpr std::optional<MapNode::ID> water_border_neighbor() const noexcept {
 			return std::nullopt;
 		}
 	};
 	class Water {
-		WaterBodyID water_body_id_{ static_cast<std::uint8_t>(0u) };
+		std::optional<MapNode::ID> water_border_neighbor_{ std::nullopt };
 	public:
-		constexpr Water(WaterBodyID wbody_id) noexcept
-			: water_body_id_{ wbody_id }
+		constexpr Water() noexcept
+			: water_border_neighbor_{ std::nullopt }
+		{}
+
+		// Use this constructor when the water node forms part of a water
+		// border.
+		constexpr Water(MapNode::ID neighboring_water_node_id) noexcept
+			: water_border_neighbor_{ neighboring_water_node_id }
 		{}
 
 		constexpr bool can_drop_evidence() const noexcept {
 			return false;
 		}
 
-		constexpr WaterBodyID id() const noexcept { return water_body_id_; }
-		constexpr std::optional<WaterBodyID> water_body_id() const noexcept {
-			return id();
+		constexpr std::optional<MapNode::ID> water_border_neighbor() const noexcept {
+			return water_border_neighbor_;
 		}
 	};
 private:
@@ -135,11 +138,15 @@ public:
 			}, type_);
 	}
 
-	constexpr std::optional<WaterBodyID> water_body_id() const {
+	constexpr bool is_water() const noexcept {
+		return std::holds_alternative<Water>(type_);
+	}
+
+	constexpr std::optional<MapNode::ID> water_border_neighbor() const {
 		return std::visit(
 			[](const auto& t)
 			{
-				return t.water_body_id();	
+				return t.water_border_neighbor();
 			}, type_);
 	}
 };

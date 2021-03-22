@@ -29,11 +29,15 @@ void print_jack_node(const wl::JackNode& jack_node,
 	                 const wl::MapNode& map_node) {
 	std::cout << "\t\tneighbors: ";
 	print_id_list(map_node.neighbors());
-	std::cout << std::endl << "\t\tcan drop evidence: " <<
-		(jack_node.can_drop_evidence() ? "true" : "false") << std::endl;
-	const auto water_body_id = jack_node.water_body_id();
-	if (water_body_id.has_value()) {
-		std::cout << "\t\twater body id: " << static_cast<std::size_t>(*water_body_id) << std::endl;
+	if (!jack_node.can_drop_evidence()) {
+		std::cout << std::endl << "\t\tcan drop evidence: false" << std::endl;
+	}
+	if (jack_node.is_water()) {
+		std::cout << "\t\tis water: true" << std::endl;
+	}
+	const auto water_border_neighbor = jack_node.water_border_neighbor();
+	if (water_border_neighbor.has_value()) {
+		std::cout << "\t\twater border neighbor: " << static_cast<std::size_t>(*water_border_neighbor) << std::endl;
 	}
 }
 
