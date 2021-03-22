@@ -8,7 +8,7 @@
 
 namespace wl {
 
-static constexpr std::array<MapNode,100> map_nodes = {
+static constexpr std::array<MapNode,MapGraph::num_nodes_total> map_nodes = {
 	/*j000*/MapNode{j000_nbors}, // aka j189
 	/*j001*/MapNode{j001_nbors},
 	/*j002*/MapNode{j002_nbors},
@@ -108,10 +108,20 @@ static constexpr std::array<MapNode,100> map_nodes = {
 	/*j096*/MapNode{j096_nbors},
 	/*j097*/MapNode{j097_nbors},
 	/*j098*/MapNode{j098_nbors},
-	/*j099*/MapNode{j099_nbors}
+	/*j099*/MapNode{j099_nbors},
+	/*j100*/MapNode{j100_nbors}, // 100s
+	/*j101*/MapNode{j101_nbors},
+	/*j102*/MapNode{j102_nbors},
+	/*j103*/MapNode{j103_nbors},
+	/*j104*/MapNode{j104_nbors},
+	/*j105*/MapNode{j105_nbors},
+	/*j106*/MapNode{j106_nbors},
+	/*j107*/MapNode{j107_nbors},
+	/*j108*/MapNode{j108_nbors},
+	/*j109*/MapNode{j109_nbors}
 };
 
-static constexpr std::array<JackNode,100> jack_nodes = {
+static constexpr std::array<JackNode,JackNode::num_nodes_total> jack_nodes = {
 	/*j000*/JackNode{}, // aka j189
 	/*j001*/JackNode{},
 	/*j002*/JackNode{},
@@ -211,10 +221,20 @@ static constexpr std::array<JackNode,100> jack_nodes = {
 	/*j096*/JackNode{JackNode::Type::Water},
 	/*j097*/JackNode{JackNode::Type::NoEvidence},
 	/*j098*/JackNode{JackNode::Type::Water},
-	/*j099*/JackNode{JackNode::Type::NoEvidence}
+	/*j099*/JackNode{JackNode::Type::NoEvidence},
+	/*j100*/JackNode{JackNode::Type::NoEvidence}, // 100s
+	/*j101*/JackNode{JackNode::Type::NoEvidence},
+	/*j102*/JackNode{JackNode::Type::NoEvidence},
+	/*j103*/JackNode{JackNode::Type::NoEvidence},
+	/*j104*/JackNode{JackNode::Type::NoEvidence},
+	/*j105*/JackNode{JackNode::Type::NoEvidence},
+	/*j106*/JackNode{JackNode::Type::NoEvidence},
+	/*j107*/JackNode{JackNode::Type::NoEvidence},
+	/*j108*/JackNode{JackNode::Type::NoEvidence},
+	/*j109*/JackNode{JackNode::Type::NoEvidence}
 };
 
-static constexpr std::span<const InvestigatorNode, 0> investigator_nodes;
+static constexpr std::span<const InvestigatorNode, InvestigatorNode::num_nodes_total> investigator_nodes;
 
 constexpr MapGraph default_map() noexcept {
 	return MapGraph{map_nodes, jack_nodes, investigator_nodes};
