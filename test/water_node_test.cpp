@@ -1,9 +1,11 @@
 #include <gtest/gtest.h>
-#include <wl/default_map.h>
+#include <wl/wl.h>
 
-namespace {
-	const wl::MapGraph default_map = wl::default_map();
-} // namespace
+TEST(WaterNode, can_drop_evidence) {
+	constexpr wl::JackNode water_node{ wl::JackNode::Type::Water };
+	static_assert(!water_node.can_drop_evidence());
+	EXPECT_FALSE(water_node.can_drop_evidence());
+}
 
 TEST(WaterNode, is_water) {
 	constexpr wl::JackNode water_node{ wl::JackNode::Type::Water };

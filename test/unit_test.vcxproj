@@ -165,6 +165,8 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="normal_node_test.cpp" />
+    <ClCompile Include="no_evidence_node_test.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="map_node_test.cpp" />
     <ClCompile Include="water_node_test.cpp" />

@@ -24,5 +24,11 @@
     <ClCompile Include="water_node_test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="no_evidence_node_test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="normal_node_test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
