@@ -23,6 +23,13 @@ public:
 
 	struct AsEndIterator{};
 
+	ClockwiseNodeBlocksIterator()
+		: node_id_{0u}
+		, remaining_neighbors_{}
+		, map_graph_{nullptr}
+		, current_block_{}
+	{}
+
 	ClockwiseNodeBlocksIterator(MapNode::ID node_id,
 		const MapGraph& graph) noexcept
 		: node_id_{ node_id }
@@ -101,8 +108,8 @@ private:
 //       connected component as a block. Steps must be taken to avoid that
 //       case if this is not desirable.
 class ClockwiseNodeBlocks {
-	ClockwiseNodeBlocksIterator begin_;
-	ClockwiseNodeBlocksIterator end_;
+	ClockwiseNodeBlocksIterator begin_{};
+	ClockwiseNodeBlocksIterator end_{};
 public:
 	using iterator = ClockwiseNodeBlocksIterator;
 

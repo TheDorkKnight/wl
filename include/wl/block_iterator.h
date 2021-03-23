@@ -112,6 +112,11 @@ public:
 	}
 
 	const MapGraph& get_graph() const noexcept { return *map_graph_; }
+	ClockwiseBlockIterator as_end() const noexcept {
+		ClockwiseBlockIterator end_itr{ *this };
+		end_itr.as_begin_ = false;
+		return end_itr;
+	}
 };
 
 // Range of all adjacencies in a block. Example usage:

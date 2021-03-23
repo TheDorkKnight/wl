@@ -26,6 +26,11 @@ public:
 		, end_{}
 	{}
 
+	JackNodeBlockIterator(ClockwiseBlockIterator underlying_iterator) noexcept
+		: itr_{ underlying_iterator }
+		, end_{ underlying_iterator.as_end() }
+	{}
+
 	JackNodeBlockIterator(MapNode::ID prev_neighbor_node_id,
 		MapNode::ID start_node_id,
 		const MapGraph& graph,
@@ -107,6 +112,10 @@ public:
 	JackNodesBlock()
 		: begin_{}
 		, end_{}
+	{}
+	JackNodesBlock(ClockwiseBlockIterator underlying_iterator)
+		: begin_{ std::move(underlying_iterator) }
+		, end_{ begin_.get_end() }
 	{}
 	JackNodesBlock(MapNode::ID prev_neighbor, MapNode::ID starting_node, const MapGraph& graph)
 		: begin_{ prev_neighbor, starting_node,  graph, iterator::AsBeginIterator{} }
