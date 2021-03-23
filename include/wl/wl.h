@@ -35,6 +35,13 @@ public:
 
 		constexpr ID id() const noexcept { return id_; }
 		constexpr bool is_water_border() const noexcept { return is_water_; }
+
+		constexpr bool operator==(const Adjacency& other) const noexcept {
+			return (id_ == other.id_) && (is_water_ == other.is_water_);
+		}
+		constexpr bool operator!=(const Adjacency& other) const noexcept {
+			return (id_ != other.id_) || (is_water_ != other.is_water_);
+		}
 	};
 
 private:
@@ -121,7 +128,7 @@ public:
 
 class InvestigatorNode {
 public:
-	static constexpr std::size_t num_nodes_total = 11u; // so far
+	static constexpr std::size_t num_nodes_total = 21u; // so far
 
 private:
 	bool starting_position_ = false;
