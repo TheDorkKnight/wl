@@ -94,6 +94,59 @@ public:
 
 	iterator begin() const { return begin_; }
 	iterator end() const { return end_; }
+
+	// Use this function when the start node is a non-Water JackNode.
+	template<class FuncOnAlleyNeighbors>
+	void for_each_alley_neighbor(FuncOnAlleyNeighbors&& alley_func) const {
+		for (auto itr = begin_; itr != end_; ++itr) {
+			const JackNodesBlock& block = *itr;
+			if (block.is_water_block()) {
+				continue;
+			}
+
+			// move ahead by one, since each block starts with self
+			auto block_itr = block.begin();
+			const auto block_end = block.end();
+			if (block_itr == block_end) {
+				continue;
+			}
+			++block_itr;
+
+			for (; block_itr != block_end; ++block_itr) {
+				alley_func(*block_itr);
+			}
+		}
+	}
+
+	// Use this function when the start node is a Water JackNode. Any
+	// block that a Water node touches is necessarily a water block, so
+	// alleys do not apply.
+	template<class FuncOnWaterNeighbors>
+	void for_each_water_neighbor(FuncOnWaterNeighbors&& water_func) const {
+		for (auto itr = begin_; itr != end_; ++itr) {
+			const JackNodesBlock& block = *itr;
+			if (!block.is_water_block()) {
+				continue;
+			}
+
+			// move ahead by one, since each block starts with self
+			auto block_itr = block.begin();
+			const auto block_end = block.end();
+			if (block_itr == block_end) {
+				continue;
+			}
+			++block_itr;
+
+			for (; block_itr != block_end; ++block_itr) {
+				const auto id = *block_itr;
+				const auto& jack_node = block_itr.get_graph().jack_node(id);
+				if (!jack_node.is_water()) {
+					continue;
+				}
+				water_func(id);
+			}
+		}
+	}
 };
 
 } // namespace wl
