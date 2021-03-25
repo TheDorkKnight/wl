@@ -99,6 +99,36 @@ static constexpr std::array<MapNode::Adjacency, 3> i218_nbors = {
 static constexpr std::array<MapNode::Adjacency, 4> i219_nbors = {
 	map_id(28u), map_id(30u), map_id(235u), map_id(48u) };
 
+static constexpr std::array<MapNode::Adjacency, 4> i220_nbors = {
+	map_id(29u), map_id(221u), map_id(31u), map_id(30u) };
+
+static constexpr std::array<MapNode::Adjacency, 4> i221_nbors = {
+	map_id(13u), map_id(32u), map_id(220u), map_id(208u) };
+
+static constexpr std::array<MapNode::Adjacency, 4> i222_nbors = {
+	map_id(13u), map_id(15u), map_id(33u), map_id(32u) };
+
+static constexpr std::array<MapNode::Adjacency, 4> i223_nbors = {
+	map_id(15u), map_id(211u), map_id(34u), map_id(33u) };
+
+static constexpr std::array<MapNode::Adjacency, 4> i224_nbors = {
+	map_id(34u), map_id(211u), map_id(37u), map_id(35u) };
+
+static constexpr std::array<MapNode::Adjacency, 6> i225_nbors = {
+	map_id(37u), map_id(38u), map_id(226u), map_id(40u), map_id(39u), map_id(241u) };
+
+static constexpr std::array<MapNode::Adjacency, 3> i226_nbors = {
+	map_id(21u), map_id(41u), map_id(225u) };
+
+static constexpr std::array<MapNode::Adjacency, 3> i227_nbors = {
+	map_id(42u), map_id(216u), map_id(228u) };
+
+static constexpr std::array<MapNode::Adjacency, 3> i228_nbors = {
+	map_id(24u), map_id(44u), map_id(227u) };
+
+static constexpr std::array<MapNode::Adjacency, 3> i229_nbors = {
+	map_id(24u), map_id(46u), map_id(246u) };
+
 } // namespace wl
 
 #endif // WL_I_NODES_H
