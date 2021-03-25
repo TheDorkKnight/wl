@@ -2,6 +2,7 @@
 #include <wl/wl.h>
 #include <wl/default_map.h>
 #include <wl/block_iterator.h>
+#include <wl/node_blocks_iterator.h>
 
 namespace {
 
@@ -16,8 +17,20 @@ void Benchmark_ClockwiseBlockIteration(benchmark::State& state) {
 		}
 	}
 }
-	
+
+void Benchmark_ClockwiseNodeBlocksIteration(benchmark::State& state) {
+	const wl::ClockwiseNodeBlocks blocks_for_node_9{ wl::map_id(9u), default_map };
+
+	for (auto _ : state) {
+		for (const auto& block : blocks_for_node_9) {
+			for (const auto node_id : block) {
+				benchmark::DoNotOptimize(node_id);
+			}
+		}
+	}
+}
 
 } // namespace
 
 BENCHMARK(Benchmark_ClockwiseBlockIteration);
+BENCHMARK(Benchmark_ClockwiseNodeBlocksIteration);
