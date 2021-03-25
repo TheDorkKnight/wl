@@ -117,7 +117,7 @@ public:
 		: type_{ t }
 	{}
 
-	constexpr bool can_drop_evidence() const {
+	constexpr bool can_drop_evidence() const noexcept {
 		return type_ == Type::Normal;
 	}
 
