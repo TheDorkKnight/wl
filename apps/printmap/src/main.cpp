@@ -36,8 +36,9 @@ void print_jack_node(const wl::JackNode& jack_node,
 	                 const wl::MapNode& map_node) {
 	std::cout << "\t\tneighbors: ";
 	print_adjacency_list(map_node.neighbors());
+	std::cout << std::endl;
 	if (!jack_node.can_drop_evidence()) {
-		std::cout << std::endl << "\t\tcan drop evidence: false" << std::endl;
+		std::cout << "\t\tcan drop evidence: false" << std::endl;
 	}
 	if (jack_node.is_water()) {
 		std::cout << "\t\tis water: true" << std::endl;
@@ -48,8 +49,10 @@ void print_investigator_node(const wl::InvestigatorNode& investigator_node,
 	                         const wl::MapNode& map_node) {
 	std::cout << "\t\tneighbors: ";
 	print_adjacency_list(map_node.neighbors());
-	std::cout << std::endl << "\t\tcan start: " <<
-		(investigator_node.is_starting_position() ? "true" : "false") << std::endl;
+	std::cout << std::endl;
+	if (investigator_node.is_starting_position()) {
+		std::cout << "\t\tcan start: true" << std::endl;
+	}
 }
 
 void print_graph(const wl::MapGraph& graph) {

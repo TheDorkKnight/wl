@@ -35,6 +35,13 @@ public:
 
 		constexpr ID id() const noexcept { return id_; }
 		constexpr bool is_water_border() const noexcept { return is_water_; }
+
+		constexpr bool operator==(const Adjacency& other) const noexcept {
+			return (id_ == other.id_) && (is_water_ == other.is_water_);
+		}
+		constexpr bool operator!=(const Adjacency& other) const noexcept {
+			return (id_ != other.id_) || (is_water_ != other.is_water_);
+		}
 	};
 
 private:
@@ -94,7 +101,7 @@ constexpr std::uint16_t map_id_to_label(MapNode::ID id) noexcept {
 
 class JackNode {
 public:
-	static constexpr std::size_t num_nodes_total = 100u; // should be 189u;
+	static constexpr std::size_t num_nodes_total = 189u;
 
 	enum class Type : std::uint8_t {
 		Normal,
@@ -121,14 +128,19 @@ public:
 
 class InvestigatorNode {
 public:
-	static constexpr std::size_t num_nodes_total = 0u; // so far
+	static constexpr std::size_t num_nodes_total = 21u; // so far
 
 private:
 	bool starting_position_ = false;
 
 public:
-	constexpr InvestigatorNode(bool is_starting_pos) noexcept
-		: starting_position_{ is_starting_pos }
+	struct StartPosition{};
+
+	constexpr InvestigatorNode() noexcept
+		: starting_position_{ false }
+	{}
+	constexpr InvestigatorNode(StartPosition) noexcept
+		: starting_position_{ true }
 	{}
 
 	constexpr bool is_starting_position() const noexcept {

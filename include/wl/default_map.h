@@ -5,10 +5,11 @@
 #include <span>
 #include <wl/wl.h>
 #include <wl/j_nodes.h>
+#include <wl/i_nodes.h>
 
 namespace wl {
 
-static constexpr std::array<MapNode,100> map_nodes = {
+static constexpr std::array<MapNode,MapGraph::num_nodes_total> map_nodes = {
 	/*j000*/MapNode{j000_nbors}, // aka j189
 	/*j001*/MapNode{j001_nbors},
 	/*j002*/MapNode{j002_nbors},
@@ -108,10 +109,120 @@ static constexpr std::array<MapNode,100> map_nodes = {
 	/*j096*/MapNode{j096_nbors},
 	/*j097*/MapNode{j097_nbors},
 	/*j098*/MapNode{j098_nbors},
-	/*j099*/MapNode{j099_nbors}
+	/*j099*/MapNode{j099_nbors},
+	/*j100*/MapNode{j100_nbors}, // 100s
+	/*j101*/MapNode{j101_nbors},
+	/*j102*/MapNode{j102_nbors},
+	/*j103*/MapNode{j103_nbors},
+	/*j104*/MapNode{j104_nbors},
+	/*j105*/MapNode{j105_nbors},
+	/*j106*/MapNode{j106_nbors},
+	/*j107*/MapNode{j107_nbors},
+	/*j108*/MapNode{j108_nbors},
+	/*j109*/MapNode{j109_nbors},
+	/*j110*/MapNode{j110_nbors}, // 110s
+	/*j111*/MapNode{j111_nbors},
+	/*j112*/MapNode{j112_nbors},
+	/*j113*/MapNode{j113_nbors},
+	/*j114*/MapNode{j114_nbors},
+	/*j115*/MapNode{j115_nbors},
+	/*j116*/MapNode{j116_nbors},
+	/*j117*/MapNode{j117_nbors},
+	/*j118*/MapNode{j118_nbors},
+	/*j119*/MapNode{j119_nbors},
+	/*j120*/MapNode{j120_nbors}, // 120s
+	/*j121*/MapNode{j121_nbors},
+	/*j122*/MapNode{j122_nbors},
+	/*j123*/MapNode{j123_nbors},
+	/*j124*/MapNode{j124_nbors},
+	/*j125*/MapNode{j125_nbors},
+	/*j126*/MapNode{j126_nbors},
+	/*j127*/MapNode{j127_nbors},
+	/*j128*/MapNode{j128_nbors},
+	/*j129*/MapNode{j129_nbors},
+	/*j130*/MapNode{j130_nbors}, // 130s
+	/*j131*/MapNode{j131_nbors},
+	/*j132*/MapNode{j132_nbors},
+	/*j133*/MapNode{j133_nbors},
+	/*j134*/MapNode{j134_nbors},
+	/*j135*/MapNode{j135_nbors},
+	/*j136*/MapNode{j136_nbors},
+	/*j137*/MapNode{j137_nbors},
+	/*j138*/MapNode{j138_nbors},
+	/*j139*/MapNode{j139_nbors},
+	/*j140*/MapNode{j140_nbors}, // 140s
+	/*j141*/MapNode{j141_nbors},
+	/*j142*/MapNode{j142_nbors},
+	/*j143*/MapNode{j143_nbors},
+	/*j144*/MapNode{j144_nbors},
+	/*j145*/MapNode{j145_nbors},
+	/*j146*/MapNode{j146_nbors},
+	/*j147*/MapNode{j147_nbors},
+	/*j148*/MapNode{j148_nbors},
+	/*j149*/MapNode{j149_nbors},
+	/*j150*/MapNode{j150_nbors}, // 150s
+	/*j151*/MapNode{j151_nbors},
+	/*j152*/MapNode{j152_nbors},
+	/*j153*/MapNode{j153_nbors},
+	/*j154*/MapNode{j154_nbors},
+	/*j155*/MapNode{j155_nbors},
+	/*j156*/MapNode{j156_nbors},
+	/*j157*/MapNode{j157_nbors},
+	/*j158*/MapNode{j158_nbors},
+	/*j159*/MapNode{j159_nbors},
+	/*j160*/MapNode{j160_nbors}, // 160s
+	/*j161*/MapNode{j161_nbors},
+	/*j162*/MapNode{j162_nbors},
+	/*j163*/MapNode{j163_nbors},
+	/*j164*/MapNode{j164_nbors},
+	/*j165*/MapNode{j165_nbors},
+	/*j166*/MapNode{j166_nbors},
+	/*j167*/MapNode{j167_nbors},
+	/*j168*/MapNode{j168_nbors},
+	/*j169*/MapNode{j169_nbors},
+	/*j170*/MapNode{j170_nbors}, // 170s
+	/*j171*/MapNode{j171_nbors},
+	/*j172*/MapNode{j172_nbors},
+	/*j173*/MapNode{j173_nbors},
+	/*j174*/MapNode{j174_nbors},
+	/*j175*/MapNode{j175_nbors},
+	/*j176*/MapNode{j176_nbors},
+	/*j177*/MapNode{j177_nbors},
+	/*j178*/MapNode{j178_nbors},
+	/*j179*/MapNode{j179_nbors},
+	/*j180*/MapNode{j180_nbors}, // 180s
+	/*j181*/MapNode{j181_nbors},
+	/*j182*/MapNode{j182_nbors},
+	/*j183*/MapNode{j183_nbors},
+	/*j184*/MapNode{j184_nbors},
+	/*j185*/MapNode{j185_nbors},
+	/*j186*/MapNode{j186_nbors},
+	/*j187*/MapNode{j187_nbors},
+	/*j188*/MapNode{j188_nbors},
+	/*i189*/MapNode{i189_nbors}, // start of i nodes
+	/*i190*/MapNode{i190_nbors}, // 190s
+	/*i191*/MapNode{i191_nbors},
+	/*i192*/MapNode{i192_nbors},
+	/*i193*/MapNode{i193_nbors},
+	/*i194*/MapNode{i194_nbors},
+	/*i195*/MapNode{i195_nbors},
+	/*i196*/MapNode{i196_nbors},
+	/*i197*/MapNode{i197_nbors},
+	/*i198*/MapNode{i198_nbors},
+	/*i199*/MapNode{i199_nbors},
+	/*i200*/MapNode{i200_nbors}, // 200s
+	/*i201*/MapNode{i201_nbors},
+	/*i202*/MapNode{i202_nbors},
+	/*i203*/MapNode{i203_nbors},
+	/*i204*/MapNode{i204_nbors},
+	/*i205*/MapNode{i205_nbors},
+	/*i206*/MapNode{i206_nbors},
+	/*i207*/MapNode{i207_nbors},
+	/*i208*/MapNode{i208_nbors},
+	/*i209*/MapNode{i209_nbors}
 };
 
-static constexpr std::array<JackNode,100> jack_nodes = {
+static constexpr std::array<JackNode,JackNode::num_nodes_total> jack_nodes = {
 	/*j000*/JackNode{}, // aka j189
 	/*j001*/JackNode{},
 	/*j002*/JackNode{},
@@ -211,10 +322,121 @@ static constexpr std::array<JackNode,100> jack_nodes = {
 	/*j096*/JackNode{JackNode::Type::Water},
 	/*j097*/JackNode{JackNode::Type::NoEvidence},
 	/*j098*/JackNode{JackNode::Type::Water},
-	/*j099*/JackNode{JackNode::Type::NoEvidence}
+	/*j099*/JackNode{JackNode::Type::NoEvidence},
+	/*j100*/JackNode{JackNode::Type::NoEvidence}, // 100s
+	/*j101*/JackNode{JackNode::Type::NoEvidence},
+	/*j102*/JackNode{JackNode::Type::NoEvidence},
+	/*j103*/JackNode{JackNode::Type::NoEvidence},
+	/*j104*/JackNode{JackNode::Type::NoEvidence},
+	/*j105*/JackNode{JackNode::Type::NoEvidence},
+	/*j106*/JackNode{JackNode::Type::NoEvidence},
+	/*j107*/JackNode{JackNode::Type::NoEvidence},
+	/*j108*/JackNode{JackNode::Type::NoEvidence},
+	/*j109*/JackNode{JackNode::Type::NoEvidence},
+	/*j110*/JackNode{JackNode::Type::Water}, // 110s
+	/*j111*/JackNode{JackNode::Type::Water},
+	/*j112*/JackNode{JackNode::Type::NoEvidence},
+	/*j113*/JackNode{JackNode::Type::Water},
+	/*j114*/JackNode{JackNode::Type::NoEvidence},
+	/*j115*/JackNode{JackNode::Type::NoEvidence},
+	/*j116*/JackNode{JackNode::Type::NoEvidence},
+	/*j117*/JackNode{JackNode::Type::Normal},
+	/*j118*/JackNode{JackNode::Type::NoEvidence},
+	/*j119*/JackNode{JackNode::Type::Normal},
+	/*j120*/JackNode{JackNode::Type::Normal}, // 120s
+	/*j121*/JackNode{JackNode::Type::Normal},
+	/*j122*/JackNode{JackNode::Type::Normal},
+	/*j123*/JackNode{JackNode::Type::Normal},
+	/*j124*/JackNode{JackNode::Type::NoEvidence},
+	/*j125*/JackNode{JackNode::Type::NoEvidence},
+	/*j126*/JackNode{JackNode::Type::NoEvidence},
+	/*j127*/JackNode{JackNode::Type::NoEvidence},
+	/*j128*/JackNode{JackNode::Type::NoEvidence},
+	/*j129*/JackNode{JackNode::Type::Normal},
+	/*j130*/JackNode{JackNode::Type::Normal}, // 130s
+	/*j131*/JackNode{JackNode::Type::Water},
+	/*j132*/JackNode{JackNode::Type::Normal},
+	/*j133*/JackNode{JackNode::Type::Normal},
+	/*j134*/JackNode{JackNode::Type::Normal},
+	/*j135*/JackNode{JackNode::Type::Normal},
+	/*j136*/JackNode{JackNode::Type::Normal},
+	/*j137*/JackNode{JackNode::Type::Normal},
+	/*j138*/JackNode{JackNode::Type::Water},
+	/*j139*/JackNode{JackNode::Type::Normal},
+	/*j140*/JackNode{JackNode::Type::NoEvidence}, // 140s
+	/*j141*/JackNode{JackNode::Type::NoEvidence},
+	/*j142*/JackNode{JackNode::Type::Normal},
+	/*j143*/JackNode{JackNode::Type::Water},
+	/*j144*/JackNode{JackNode::Type::Water},
+	/*j145*/JackNode{JackNode::Type::Normal},
+	/*j146*/JackNode{JackNode::Type::Normal},
+	/*j147*/JackNode{JackNode::Type::Normal},
+	/*j148*/JackNode{JackNode::Type::Normal},
+	/*j149*/JackNode{JackNode::Type::Normal},
+	/*j150*/JackNode{JackNode::Type::Normal}, // 150s
+	/*j151*/JackNode{JackNode::Type::Normal},
+	/*j152*/JackNode{JackNode::Type::Normal},
+	/*j153*/JackNode{JackNode::Type::Normal},
+	/*j154*/JackNode{JackNode::Type::Water},
+	/*j155*/JackNode{JackNode::Type::Normal},
+	/*j156*/JackNode{JackNode::Type::Normal},
+	/*j157*/JackNode{JackNode::Type::Water},
+	/*j158*/JackNode{JackNode::Type::Water},
+	/*j159*/JackNode{JackNode::Type::Normal},
+	/*j160*/JackNode{JackNode::Type::Water}, // 160s
+	/*j161*/JackNode{JackNode::Type::Normal},
+	/*j162*/JackNode{JackNode::Type::NoEvidence},
+	/*j163*/JackNode{JackNode::Type::NoEvidence},
+	/*j164*/JackNode{JackNode::Type::NoEvidence},
+	/*j165*/JackNode{JackNode::Type::Normal},
+	/*j166*/JackNode{JackNode::Type::Water},
+	/*j167*/JackNode{JackNode::Type::Water},
+	/*j168*/JackNode{JackNode::Type::Normal},
+	/*j169*/JackNode{JackNode::Type::Normal},
+	/*j170*/JackNode{JackNode::Type::Normal}, // 170s
+	/*j171*/JackNode{JackNode::Type::Normal},
+	/*j172*/JackNode{JackNode::Type::Normal},
+	/*j173*/JackNode{JackNode::Type::Normal},
+	/*j174*/JackNode{JackNode::Type::Water},
+	/*j175*/JackNode{JackNode::Type::Normal},
+	/*j176*/JackNode{JackNode::Type::Normal},
+	/*j177*/JackNode{JackNode::Type::Normal},
+	/*j178*/JackNode{JackNode::Type::Normal},
+	/*j179*/JackNode{JackNode::Type::NoEvidence},
+	/*j180*/JackNode{JackNode::Type::NoEvidence}, // 180s
+	/*j181*/JackNode{JackNode::Type::NoEvidence},
+	/*j182*/JackNode{JackNode::Type::NoEvidence},
+	/*j183*/JackNode{JackNode::Type::Normal},
+	/*j184*/JackNode{JackNode::Type::Water},
+	/*j185*/JackNode{JackNode::Type::Normal},
+	/*j186*/JackNode{JackNode::Type::Normal},
+	/*j187*/JackNode{JackNode::Type::Normal},
+	/*j188*/JackNode{JackNode::Type::Normal}
 };
 
-static constexpr std::span<const InvestigatorNode, 0> investigator_nodes;
+static constexpr std::array<InvestigatorNode, InvestigatorNode::num_nodes_total> investigator_nodes = {
+	/*i189*/InvestigatorNode{},
+	/*i190*/InvestigatorNode{}, // 190s
+	/*i191*/InvestigatorNode{},
+	/*i192*/InvestigatorNode{},
+	/*i193*/InvestigatorNode{},
+	/*i194*/InvestigatorNode{},
+	/*i195*/InvestigatorNode{},
+	/*i196*/InvestigatorNode{},
+	/*i197*/InvestigatorNode{},
+	/*i198*/InvestigatorNode{},
+	/*i199*/InvestigatorNode{},
+	/*i200*/InvestigatorNode{}, // 200s
+	/*i201*/InvestigatorNode{},
+	/*i202*/InvestigatorNode{},
+	/*i203*/InvestigatorNode{},
+	/*i204*/InvestigatorNode{},
+	/*i205*/InvestigatorNode{},
+	/*i206*/InvestigatorNode{},
+	/*i207*/InvestigatorNode{},
+	/*i208*/InvestigatorNode{},
+	/*i209*/InvestigatorNode{}
+};
 
 constexpr MapGraph default_map() noexcept {
 	return MapGraph{map_nodes, jack_nodes, investigator_nodes};
