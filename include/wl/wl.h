@@ -18,20 +18,42 @@ class MapNode {
 public:
 	using ID = TaggedID<Tag, std::uint16_t>;
 
+	class Adjacency {
+		ID id_         = ID{ 0u };
+		bool is_water_ = false;
+	public:
+		struct WaterBorder{};
+
+		constexpr Adjacency(ID neighbor_id) noexcept
+			: id_{neighbor_id}
+			, is_water_{ false }
+		{}
+		constexpr Adjacency(ID neighbor_id, WaterBorder) noexcept
+			: id_{ neighbor_id }
+			, is_water_{ true }
+		{}
+
+		constexpr ID id() const noexcept { return id_; }
+		constexpr bool is_water_border() const noexcept { return is_water_; }
+	};
+
 private:
 	// neighbors must be specified in clockwise order
-	std::span<const ID> neighbors_{};
+	std::span<const Adjacency> neighbors_{};
 
 	constexpr auto find_neighbor(ID nbor) const noexcept {
-		return std::find(neighbors_.begin(), neighbors_.end(), nbor);
+		return std::find_if(neighbors_.begin(), neighbors_.end(),
+			[nbor](const auto& adjacency) noexcept -> bool {
+				return adjacency.id() == nbor;
+			});
 	}
 
 public:
-	constexpr MapNode(std::span<const ID> nbors) noexcept : neighbors_{nbors} {}
+	constexpr MapNode(std::span<const Adjacency> nbors) noexcept : neighbors_{nbors} {}
 
-	constexpr std::span<const ID> neighbors() const noexcept { return neighbors_; }
+	constexpr std::span<const Adjacency> neighbors() const noexcept { return neighbors_; }
 
-	constexpr std::optional<ID> neighbor_counter_clockwise_of(ID nbor) const noexcept {
+	constexpr std::optional<Adjacency> neighbor_counter_clockwise_of(ID nbor) const noexcept {
 		auto nbor_itr = find_neighbor(nbor);
 		if (nbor_itr == neighbors_.end()) {
 			return std::nullopt;
@@ -47,7 +69,7 @@ public:
 		return *nbor_itr;
 	}
 
-	constexpr std::optional<ID> neighbor_clockwise_of(ID nbor) const noexcept {
+	constexpr std::optional<Adjacency> neighbor_clockwise_of(ID nbor) const noexcept {
 		auto nbor_itr = find_neighbor(nbor);
 		if (nbor_itr == neighbors_.end()) {
 			return std::nullopt;
@@ -74,73 +96,26 @@ class JackNode {
 public:
 	static constexpr std::size_t num_nodes_total = 100u; // should be 189u;
 
-	struct JackTag{};
-	struct WaterBodyTag{};
-	using WaterBodyID = TaggedID<WaterBodyTag>;
-
-	struct Normal{
-		constexpr bool can_drop_evidence() const noexcept {
-			return true;
-		}
-		constexpr std::optional<WaterBodyID> water_body_id() const noexcept {
-			return std::nullopt;
-		}
+	enum class Type : std::uint8_t {
+		Normal,
+		NoEvidence,
+		Water
 	};
-	struct NoEvidence{
-		constexpr bool can_drop_evidence() const noexcept {
-			return false;
-		}
-		constexpr std::optional<WaterBodyID> water_body_id() const noexcept {
-			return std::nullopt;
-		}
-	};
-	class Water {
-		WaterBodyID water_body_id_{ static_cast<std::uint8_t>(0u) };
-	public:
-		constexpr Water(WaterBodyID wbody_id) noexcept
-			: water_body_id_{ wbody_id }
-		{}
 
-		constexpr bool can_drop_evidence() const noexcept {
-			return false;
-		}
-
-		constexpr WaterBodyID id() const noexcept { return water_body_id_; }
-		constexpr std::optional<WaterBodyID> water_body_id() const noexcept {
-			return id();
-		}
-	};
 private:
-	using Type = std::variant<Normal,NoEvidence,Water>;
-	Type        type_{ Normal{} };
+	Type type_ = Type::Normal;
 
 public:
-	constexpr JackNode(Normal normal = Normal{}) noexcept
-		: type_{ std::move(normal) }
-	{}
-
-	constexpr JackNode(NoEvidence no_evidence) noexcept
-		: type_{ std::move(no_evidence) }
-	{}
-
-	constexpr JackNode(Water water) noexcept
-		: type_{ std::move(water) }
+	constexpr JackNode(Type t = Type::Normal) noexcept
+		: type_{ t }
 	{}
 
 	constexpr bool can_drop_evidence() const {
-		return std::visit(
-			[](const auto& t)
-			{
-				return t.can_drop_evidence();	
-			}, type_);
+		return type_ == Type::Normal;
 	}
 
-	constexpr std::optional<WaterBodyID> water_body_id() const {
-		return std::visit(
-			[](const auto& t)
-			{
-				return t.water_body_id();	
-			}, type_);
+	constexpr bool is_water() const noexcept {
+		return type_ == Type::Water;
 	}
 };
 

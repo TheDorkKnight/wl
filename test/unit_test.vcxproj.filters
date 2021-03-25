@@ -21,5 +21,8 @@
     <ClCompile Include="map_node_test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="water_node_test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
