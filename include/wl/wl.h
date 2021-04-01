@@ -48,6 +48,7 @@ private:
 	// neighbors must be specified in clockwise order
 	std::span<const Adjacency> neighbors_{};
 
+	// iterator to adjacency of given id. Otherwise returns end iterator
 	constexpr auto find_neighbor(ID nbor) const noexcept {
 		return std::find_if(neighbors_.begin(), neighbors_.end(),
 			[nbor](const auto& adjacency) noexcept -> bool {
@@ -59,6 +60,14 @@ public:
 	constexpr MapNode(std::span<const Adjacency> nbors) noexcept : neighbors_{nbors} {}
 
 	constexpr std::span<const Adjacency> neighbors() const noexcept { return neighbors_; }
+
+	constexpr bool is_adjacent_to(ID nbor) const noexcept { 
+		auto nbor_itr = find_neighbor(nbor);
+		if (nbor_itr == neighbors_.end()) {
+			return false;
+		}
+		return true;
+	}
 
 	constexpr std::optional<Adjacency> neighbor_counter_clockwise_of(ID nbor) const noexcept {
 		auto nbor_itr = find_neighbor(nbor);
