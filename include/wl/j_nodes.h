@@ -80,8 +80,8 @@ static constexpr std::array<MapNode::Adjacency, 3> j022_nbors = {
 static constexpr std::array<MapNode::Adjacency, 3> j023_nbors = {
 	map_id(199u), map_id(200u), map_id(216u) };
 
-static constexpr std::array<MapNode::Adjacency, 3> j024_nbors = {
-	map_id(217u), map_id(229u), map_id(228u) };
+static constexpr std::array<MapNode::Adjacency, 4> j024_nbors = {
+	map_id(200u), map_id(217u), map_id(229u), map_id(228u) };
 
 static constexpr std::array<MapNode::Adjacency, 3> j025_nbors = {
 	map_id(201u), map_id(202u), map_id(203u) };
