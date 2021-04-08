@@ -149,11 +149,11 @@ TEST(MapNode, sixty_six_to_ninety_eight_water_border) {
 }
 
 TEST(MapNode, is_not_adjacent_to_self) {
-	wl::MapNode::ID i{ 0u };
+	wl::MapNode::ID self_id{ 0u };
 	for (const auto& map_node : default_map.map_nodes())
 	{
-		EXPECT_FALSE(map_node.is_adjacent_to(i));
-		++i;
+		EXPECT_FALSE(map_node.is_adjacent_to(self_id));
+		++self_id;
 	}
 }
 

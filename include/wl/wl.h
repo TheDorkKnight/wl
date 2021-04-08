@@ -62,11 +62,7 @@ public:
 	constexpr std::span<const Adjacency> neighbors() const noexcept { return neighbors_; }
 
 	constexpr bool is_adjacent_to(ID nbor) const noexcept { 
-		auto nbor_itr = find_neighbor(nbor);
-		if (nbor_itr == neighbors_.end()) {
-			return false;
-		}
-		return true;
+		return find_neighbor(nbor) != neighbors_.end();
 	}
 
 	constexpr std::optional<Adjacency> neighbor_counter_clockwise_of(ID nbor) const noexcept {
