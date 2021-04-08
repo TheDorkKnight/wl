@@ -105,8 +105,8 @@ static constexpr std::array<MapNode::Adjacency, 4> i220_nbors = {
 static constexpr std::array<MapNode::Adjacency, 4> i221_nbors = {
 	map_id(13u), map_id(32u), map_id(220u), map_id(208u) };
 
-static constexpr std::array<MapNode::Adjacency, 4> i222_nbors = {
-	map_id(13u), map_id(15u), map_id(33u), map_id(32u) };
+static constexpr std::array<MapNode::Adjacency, 2> i222_nbors = {
+	map_id(13u), map_id(33u) };
 
 static constexpr std::array<MapNode::Adjacency, 4> i223_nbors = {
 	map_id(15u), map_id(211u), map_id(34u), map_id(33u) };
@@ -139,7 +139,7 @@ static constexpr std::array<MapNode::Adjacency, 3> i232_nbors = {
 	map_id(64u), map_id(67u), map_id(66u) };
 
 static constexpr std::array<MapNode::Adjacency, 3> i233_nbors = {
-	map_id(47u), map_id(67u), map_id(66u) };
+	map_id(47u), map_id(67u), map_id(65u) };
 
 static constexpr std::array<MapNode::Adjacency, 3> i234_nbors = {
 	map_id(48u), map_id(49u), map_id(251u) };
@@ -316,10 +316,10 @@ static constexpr std::array<MapNode::Adjacency, 3> i291_nbors = {
 	map_id(104u), map_id(105u), map_id(123u) };
 
 static constexpr std::array<MapNode::Adjacency, 3> i292_nbors = {
-	map_id(89u), map_id(293u), map_id(105u) };
+	map_id(89u), map_id(106u), map_id(105u) };
 
-static constexpr std::array<MapNode::Adjacency, 4> i293_nbors = {
-	map_id(89u), map_id(108u), map_id(107u), map_id(292u) };
+static constexpr std::array<MapNode::Adjacency, 3> i293_nbors = {
+	map_id(89u), map_id(108u), map_id(107u) };
 
 static constexpr std::array<MapNode::Adjacency, 4> i294_nbors = {
 	map_id(108u), map_id(284u), map_id(110u), map_id(130u) };
@@ -367,7 +367,7 @@ static constexpr std::array<MapNode::Adjacency, 2> i308_nbors = {
 	map_id(117u), map_id(134u) };
 
 static constexpr std::array<MapNode::Adjacency, 3> i309_nbors = {
-	map_id(119u), map_id(120u), map_id(134u) };
+	map_id(119u), map_id(121u), map_id(134u) };
 
 static constexpr std::array<MapNode::Adjacency, 2> i310_nbors = {
 	map_id(120u), map_id(318u) };
@@ -376,7 +376,7 @@ static constexpr std::array<MapNode::Adjacency, 2> i311_nbors = {
 	map_id(120u), map_id(139u) };
 
 static constexpr std::array<MapNode::Adjacency, 3> i312_nbors = {
-	map_id(129u), map_id(313u), map_id(139u) };
+	map_id(122u), map_id(313u), map_id(139u) };
 
 static constexpr std::array<MapNode::Adjacency, 3> i313_nbors = {
 	map_id(140u), map_id(322u), map_id(312u) };
@@ -393,8 +393,8 @@ static constexpr std::array<MapNode::Adjacency, 3> i316_nbors = {
 static constexpr std::array<MapNode::Adjacency, 2> i317_nbors = {
 	map_id(152u), map_id(153u) };
 
-static constexpr std::array<MapNode::Adjacency, 4> i318_nbors = {
-	map_id(134u), map_id(135u), map_id(155u), map_id(153u) };
+static constexpr std::array<MapNode::Adjacency, 5> i318_nbors = {
+	map_id(134u), map_id(310u), map_id(135u), map_id(155u), map_id(153u) };
 
 static constexpr std::array<MapNode::Adjacency, 3> i319_nbors = {
 	map_id(135u), map_id(137u), map_id(136u) };
