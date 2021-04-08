@@ -156,3 +156,22 @@ TEST(MapNode, is_not_adjacent_to_self) {
 		++self_id;
 	}
 }
+
+TEST(MapNode, all_adjacencies_are_bidirectional) {
+	wl::MapNode::ID original_id{ 0u };
+	const wl::MapNode::ID max_id_implemented{ static_cast<std::uint16_t>(default_map.map_nodes().size() - 1) };
+	for (const auto& map_node : default_map.map_nodes())
+	{
+		for (const auto& adjacency : map_node.neighbors())
+		{
+			const auto adjacent_id = adjacency.id();
+			if (adjacent_id > max_id_implemented)
+			{
+				continue;
+			}
+			const auto& adjacent_node = default_map.map_node(adjacent_id);
+			EXPECT_TRUE(adjacent_node.is_adjacent_to(original_id)) << static_cast<size_t>(adjacent_id) << " is not adjacent to " << static_cast<size_t>(original_id);
+		}
+		++original_id;
+	}
+}
