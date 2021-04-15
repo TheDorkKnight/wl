@@ -24,7 +24,7 @@ public:
 	public:
 		struct WaterBorder{};
 
-		constexpr Adjacency(ID neighbor_id) noexcept
+		constexpr Adjacency(ID neighbor_id)
 			: id_{neighbor_id}
 			, is_water_{ false }
 		{}
@@ -133,7 +133,7 @@ public:
 
 class InvestigatorNode {
 public:
-	static constexpr std::size_t num_nodes_total = 132u; // so far
+	static constexpr std::size_t num_nodes_total = 141u; // so far
 
 private:
 	bool starting_position_ = false;
