@@ -133,7 +133,7 @@ public:
 
 class InvestigatorNode {
 public:
-	static constexpr std::size_t num_nodes_total = 151u; // so far
+	static constexpr std::size_t num_nodes_total = 161u; // so far
 
 private:
 	bool starting_position_ = false;
