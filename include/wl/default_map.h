@@ -339,7 +339,17 @@ static constexpr std::array<MapNode,MapGraph::num_nodes_total> map_nodes = {
 	/*i326*/MapNode{i326_nbors},
 	/*i327*/MapNode{i327_nbors},
 	/*i328*/MapNode{i328_nbors},
-	/*i329*/MapNode{i329_nbors}
+	/*i329*/MapNode{i329_nbors},
+	/*i330*/MapNode{i330_nbors}, // 330s
+	/*i331*/MapNode{i331_nbors},
+	/*i332*/MapNode{i332_nbors},
+	/*i333*/MapNode{i333_nbors},
+	/*i334*/MapNode{i334_nbors},
+	/*i335*/MapNode{i335_nbors},
+	/*i336*/MapNode{i336_nbors},
+	/*i337*/MapNode{i337_nbors},
+	/*i338*/MapNode{i338_nbors},
+	/*i339*/MapNode{i339_nbors}
 };
 
 static constexpr std::array<JackNode,JackNode::num_nodes_total> jack_nodes = {
@@ -666,7 +676,7 @@ static constexpr std::array<InvestigatorNode, InvestigatorNode::num_nodes_total>
 	/*i317*/InvestigatorNode{},
 	/*i318*/InvestigatorNode{},
 	/*i319*/InvestigatorNode{},
-	/*i320*/InvestigatorNode{},  // 320s
+	/*i320*/InvestigatorNode{}, // 320s
 	/*i321*/InvestigatorNode{},
 	/*i322*/InvestigatorNode{},
 	/*i323*/InvestigatorNode{},
@@ -675,7 +685,17 @@ static constexpr std::array<InvestigatorNode, InvestigatorNode::num_nodes_total>
 	/*i326*/InvestigatorNode{},
 	/*i327*/InvestigatorNode{},
 	/*i328*/InvestigatorNode{},
-	/*i329*/InvestigatorNode{}
+	/*i329*/InvestigatorNode{},
+	/*i330*/InvestigatorNode{}, // 330s
+	/*i331*/InvestigatorNode{},
+	/*i332*/InvestigatorNode{},
+	/*i333*/InvestigatorNode{},
+	/*i334*/InvestigatorNode{},
+	/*i335*/InvestigatorNode{},
+	/*i336*/InvestigatorNode{},
+	/*i337*/InvestigatorNode{},
+	/*i338*/InvestigatorNode{},
+	/*i339*/InvestigatorNode{}
 };
 
 constexpr MapGraph default_map() noexcept {
