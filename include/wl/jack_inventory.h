@@ -14,12 +14,12 @@ class JackInventory {
 public:
 	constexpr JackInventory() noexcept = default;
 
-	constexpr JackInventory(std::uint8_t num_cs,
-		                    std::uint8_t num_as,
-		                    std::uint8_t num_bs) noexcept
-		: num_carriages_{num_cs}
-		, num_alleys_{num_as}
-		, num_boats_{num_bs}
+	constexpr JackInventory(std::uint8_t num_crgs,
+		                    std::uint8_t num_alys,
+		                    std::uint8_t num_bts) noexcept
+		: num_carriages_{num_crgs}
+		, num_alleys_{num_alys}
+		, num_boats_{num_bts}
 	{}
 
 	constexpr std::uint8_t num_carriages() const noexcept { return num_carriages_; }
