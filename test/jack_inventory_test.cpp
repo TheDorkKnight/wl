@@ -32,3 +32,10 @@ TEST(JackInventory, can_decrement_values) {
 		EXPECT_EQ(original_num_boats - 1u, inventory.num_boats());
 	}
 }
+
+TEST(JackInventory, specific_values) {
+	constexpr wl::JackInventory inventory{0u, 1u, 255u};
+	EXPECT_EQ(0u, inventory.num_carriages());
+	EXPECT_EQ(1u, inventory.num_alleys());
+	EXPECT_EQ(255u, inventory.num_boats());
+}
