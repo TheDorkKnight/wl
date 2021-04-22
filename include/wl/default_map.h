@@ -330,7 +330,49 @@ static constexpr std::array<MapNode,MapGraph::num_nodes_total> map_nodes = {
 	/*i317*/MapNode{i317_nbors},
 	/*i318*/MapNode{i318_nbors},
 	/*i319*/MapNode{i319_nbors},
-	/*i320*/MapNode{i320_nbors}  // 320s
+	/*i320*/MapNode{i320_nbors}, // 320s
+	/*i321*/MapNode{i321_nbors},
+	/*i322*/MapNode{i322_nbors},
+	/*i323*/MapNode{i323_nbors},
+	/*i324*/MapNode{i324_nbors},
+	/*i325*/MapNode{i325_nbors},
+	/*i326*/MapNode{i326_nbors},
+	/*i327*/MapNode{i327_nbors},
+	/*i328*/MapNode{i328_nbors},
+	/*i329*/MapNode{i329_nbors},
+	/*i330*/MapNode{i330_nbors}, // 330s
+	/*i331*/MapNode{i331_nbors},
+	/*i332*/MapNode{i332_nbors},
+	/*i333*/MapNode{i333_nbors},
+	/*i334*/MapNode{i334_nbors},
+	/*i335*/MapNode{i335_nbors},
+	/*i336*/MapNode{i336_nbors},
+	/*i337*/MapNode{i337_nbors},
+	/*i338*/MapNode{i338_nbors},
+	/*i339*/MapNode{i339_nbors},
+	/*i340*/MapNode{i340_nbors}, // 340s
+	/*i341*/MapNode{i341_nbors},
+	/*i342*/MapNode{i342_nbors},
+	/*i343*/MapNode{i343_nbors},
+	/*i344*/MapNode{i344_nbors},
+	/*i345*/MapNode{i345_nbors},
+	/*i346*/MapNode{i346_nbors},
+	/*i347*/MapNode{i347_nbors},
+	/*i348*/MapNode{i348_nbors},
+	/*i349*/MapNode{i349_nbors},
+	/*i350*/MapNode{i350_nbors}, // 350s
+	/*i351*/MapNode{i351_nbors},
+	/*i352*/MapNode{i352_nbors},
+	/*i353*/MapNode{i353_nbors},
+	/*i354*/MapNode{i354_nbors},
+	/*i355*/MapNode{i355_nbors},
+	/*i356*/MapNode{i356_nbors},
+	/*i357*/MapNode{i357_nbors},
+	/*i358*/MapNode{i358_nbors},
+	/*i359*/MapNode{i359_nbors},
+	/*i360*/MapNode{i360_nbors}, // 360s
+	/*i361*/MapNode{i361_nbors},
+	/*i362*/MapNode{i362_nbors}
 };
 
 static constexpr std::array<JackNode,JackNode::num_nodes_total> jack_nodes = {
@@ -657,8 +699,49 @@ static constexpr std::array<InvestigatorNode, InvestigatorNode::num_nodes_total>
 	/*i317*/InvestigatorNode{},
 	/*i318*/InvestigatorNode{},
 	/*i319*/InvestigatorNode{},
-	/*i320*/InvestigatorNode{}  // 320s
-
+	/*i320*/InvestigatorNode{}, // 320s
+	/*i321*/InvestigatorNode{},
+	/*i322*/InvestigatorNode{},
+	/*i323*/InvestigatorNode{},
+	/*i324*/InvestigatorNode{},
+	/*i325*/InvestigatorNode{},
+	/*i326*/InvestigatorNode{},
+	/*i327*/InvestigatorNode{},
+	/*i328*/InvestigatorNode{},
+	/*i329*/InvestigatorNode{},
+	/*i330*/InvestigatorNode{}, // 330s
+	/*i331*/InvestigatorNode{},
+	/*i332*/InvestigatorNode{},
+	/*i333*/InvestigatorNode{},
+	/*i334*/InvestigatorNode{},
+	/*i335*/InvestigatorNode{},
+	/*i336*/InvestigatorNode{},
+	/*i337*/InvestigatorNode{},
+	/*i338*/InvestigatorNode{},
+	/*i339*/InvestigatorNode{},
+	/*i340*/InvestigatorNode{}, // 340s
+	/*i341*/InvestigatorNode{},
+	/*i342*/InvestigatorNode{},
+	/*i343*/InvestigatorNode{},
+	/*i344*/InvestigatorNode{},
+	/*i345*/InvestigatorNode{},
+	/*i346*/InvestigatorNode{},
+	/*i347*/InvestigatorNode{},
+	/*i348*/InvestigatorNode{},
+	/*i349*/InvestigatorNode{},
+	/*i350*/InvestigatorNode{}, // 350s
+	/*i351*/InvestigatorNode{},
+	/*i352*/InvestigatorNode{},
+	/*i353*/InvestigatorNode{},
+	/*i354*/InvestigatorNode{},
+	/*i355*/InvestigatorNode{},
+	/*i356*/InvestigatorNode{},
+	/*i357*/InvestigatorNode{},
+	/*i358*/InvestigatorNode{},
+	/*i359*/InvestigatorNode{},
+	/*i360*/InvestigatorNode{}, // 360s
+	/*i361*/InvestigatorNode{},
+	/*i362*/InvestigatorNode{}
 };
 
 constexpr MapGraph default_map() noexcept {

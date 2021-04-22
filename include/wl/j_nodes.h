@@ -483,7 +483,7 @@ static constexpr std::array<MapNode::Adjacency, 1> j157_nbors = {
 	map_id(329u) };
 
 static constexpr std::array<MapNode::Adjacency, 1> j158_nbors = {
-	map_id(329u) };
+	map_id(326u) };
 
 static constexpr std::array<MapNode::Adjacency, 2> j159_nbors = {
 	map_id(329u), map_id(330u) };
