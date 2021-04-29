@@ -42,5 +42,8 @@
     <ClCompile Include="jack_inventory_test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="player_locations_test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
