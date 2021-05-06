@@ -39,3 +39,28 @@ TEST(JackInventory, specific_values) {
 	EXPECT_EQ(1u, inventory.num_alleys());
 	EXPECT_EQ(255u, inventory.num_boats());
 }
+
+TEST(JackInventory, num_of) {
+	constexpr wl::JackInventory inventory{ 0u, 1u, 255u };
+	EXPECT_EQ(0u, inventory.num_of(wl::JackResource::CARRIAGE));
+	EXPECT_EQ(1u, inventory.num_of(wl::JackResource::ALLEY));
+	EXPECT_EQ(255u, inventory.num_of(wl::JackResource::BOAT));
+}
+
+static void use_jack_resource(wl::JackInventory& inventory, wl::JackResource resource) {
+	const auto original_num = inventory.num_of(resource);
+	ASSERT_NE(0u, original_num);
+
+	inventory.use(resource);
+	EXPECT_EQ(original_num - 1u, inventory.num_of(resource));
+}
+
+TEST(JackInventory, use_jackresource) {
+	wl::JackInventory inventory;
+		
+	use_jack_resource(inventory, wl::JackResource::CARRIAGE);
+
+	use_jack_resource(inventory, wl::JackResource::ALLEY);
+
+	use_jack_resource(inventory, wl::JackResource::BOAT);
+}
