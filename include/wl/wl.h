@@ -24,7 +24,7 @@ public:
 	public:
 		struct WaterBorder{};
 
-		constexpr Adjacency(ID neighbor_id)
+		constexpr Adjacency(ID neighbor_id) noexcept
 			: id_{neighbor_id}
 			, is_water_{ false }
 		{}
