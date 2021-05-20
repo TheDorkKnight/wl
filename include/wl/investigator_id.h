@@ -1,5 +1,6 @@
 #ifndef WL_INVESTIGATOR_ID_H
 #define WL_INVESTIGATOR_ID_H
+#include <cstdint>
 
 namespace wl {
 
