@@ -5,14 +5,9 @@
 #include <cassert>
 #include <array>
 #include <wl/wl.h>
+#include <wl/investigator_id.h>
 
 namespace wl {
-
-enum class InvestigatorID : std::uint8_t {
-	ZERO,
-	ONE,
-	TWO
-};
 
 class PlayerLocations {
 	using Location = MapNode::ID;
