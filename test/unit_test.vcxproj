@@ -167,6 +167,7 @@
   <ItemGroup>
     <ClCompile Include="block_iterator_test.cpp" />
     <ClCompile Include="i_node_test.cpp" />
+    <ClCompile Include="jack_move_test.cpp" />
     <ClCompile Include="node_blocks_iterator_test.cpp" />
     <ClCompile Include="normal_node_test.cpp" />
     <ClCompile Include="no_evidence_node_test.cpp" />
