@@ -26,6 +26,20 @@ public:
 
 	constexpr MapNode::ID destination() const noexcept { return where_to_; }
 	constexpr std::optional<JackResource> cost() const noexcept { return resource_; }
+
+	constexpr bool operator==(const JackMove& other) const noexcept {
+		return (where_to_ == other.where_to_) &&
+		       (resource_ == other.resource_);
+	}
+	constexpr bool operator!=(const JackMove& other) const noexcept {
+		return !(*this == other);
+	}
+
+	constexpr bool operator<(const JackMove& other) const noexcept {
+		return (where_to_ < other.where_to_) ||
+			   (   (where_to_ == other.where_to_) &&
+			       (resource_ < other.resource_));
+	}
 };
 
 } // namespace
