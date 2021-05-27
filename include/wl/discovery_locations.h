@@ -15,9 +15,9 @@ public:
 	using iterator = std::array<MapNode::ID,4>::const_iterator;
 
 	constexpr DiscoveryLocations(MapNode::ID loc0,
-		                         MapNode::ID loc1,
-		                         MapNode::ID loc2,
-		                         MapNode::ID loc3) noexcept
+								 MapNode::ID loc1,
+								 MapNode::ID loc2,
+								 MapNode::ID loc3) noexcept
 		: locations_{loc0, loc1, loc2, loc3}
 	{}
 
