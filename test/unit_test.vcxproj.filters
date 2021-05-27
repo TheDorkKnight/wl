@@ -51,5 +51,8 @@
     <ClCompile Include="investigator_abilities_test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="find_j_moves_test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
