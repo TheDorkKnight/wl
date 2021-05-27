@@ -34,6 +34,12 @@ public:
 	}
 	constexpr MapNode::ID jack_location() const noexcept { return jack_location_; }
 
+	bool has_investigator_at_location(MapNode::ID node_id) const noexcept {
+		return (node_id == investigator_location(InvestigatorID::ZERO))
+		    || (node_id == investigator_location(InvestigatorID::ONE))
+		    || (node_id == investigator_location(InvestigatorID::TWO));
+	}
+
 	void move_investigator(InvestigatorID id, MapNode::ID to_location) noexcept {
 		switch (id) {
 		case InvestigatorID::ZERO: std::get<0>(investigator_locations_) = to_location; break;
