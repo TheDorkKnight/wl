@@ -34,6 +34,9 @@ public:
 	bool has_investigator_at_location(MapNode::ID node_id) const noexcept {
 		return player_locations_.has_investigator_at_location(node_id);
 	}
+	bool is_discovery_location(MapNode::ID node_id) const noexcept {
+		return discovery_locations_.contains(node_id);
+	}
 	MapNode::ID jack_location() const noexcept {
 	 	return player_locations_.jack_location();
 	}
