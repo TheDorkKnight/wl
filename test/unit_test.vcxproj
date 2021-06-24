@@ -166,6 +166,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="block_iterator_test.cpp" />
+    <ClCompile Include="find_j_moves_test.cpp" />
     <ClCompile Include="i_node_test.cpp" />
     <ClCompile Include="jack_move_test.cpp" />
     <ClCompile Include="node_blocks_iterator_test.cpp" />
@@ -177,7 +178,6 @@
     <ClCompile Include="jack_inventory_test.cpp" />
     <ClCompile Include="player_locations_test.cpp" />
     <ClCompile Include="investigator_abilities_test.cpp" />
-    <ClCompile Include="find_j_moves_test.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
