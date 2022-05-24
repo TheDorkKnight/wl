@@ -186,8 +186,12 @@ inline std::vector<JackMove> available_alley_jack_moves(const GameState& game_st
 inline std::vector<JackMove> available_boat_jack_moves(const GameState& game_state,
 	                                                   const History& game_history,
 	                                                   const MapGraph& map_graph) {
-	// TODO: really implement
-	return std::vector<JackMove>{};
+	const auto blocks = JackNodeBlocks{game_state.jack_location(), map_graph};
+	std::vector<JackMove> moves;
+	blocks.for_each_water_neighbor([&moves](MapNode::ID water_neighbor){
+		moves.push_back(JackMove{ water_neighbor, JackResource::BOAT });
+	});
+	return moves;
 }
 
 // Returns the set of possible jack moves given the game state
