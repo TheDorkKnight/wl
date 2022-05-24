@@ -70,6 +70,7 @@ public:
 
 	ClockwiseBlockIterator& operator++() {
 		as_begin_ = false;
+
 		const auto& node = map_graph_->map_node(current_node_id_);
 		if (node.neighbors().size() == 1u) {
 			// double-back on spikes like:
@@ -84,12 +85,12 @@ public:
 			//           |              *: current node
 			//         ( 3 )
 			//
-			// skipping re-visit of node 2
-			const auto& last_node = map_graph_->map_node(last_node_id_);
-			const auto next_adjacency = last_node.neighbor_clockwise_of(current_node_id_);
-			assert(next_adjacency.has_value());
-			current_node_id_ = next_adjacency->id();
-			return *this;
+			// go back to base-of-spike node
+			const MapNode::ID tmp = last_node_id_;
+			last_node_id_ = current_node_id_;
+			current_node_id_ = tmp;
+			// and call increment again so that we don't have anyone call operator*() at this node again
+			return ++(*this);
 		}
 		const auto next_adjacency = node.neighbor_counter_clockwise_of(last_node_id_);
 		last_node_id_ = current_node_id_;
