@@ -279,19 +279,19 @@ TEST(FindJackMoves, only_alley_moves) {
 	// adjacent to his current location, despite that fact that he is hemmed-in by investigators
 	// for all of his normal move locations. Investigators at * locations
 	//
-    //      |                             |
-    //   (i322)----------(j162)--------(i323)
-    //      |                             |
-    //      |         BLOCK   Jack     (j164)
-    //      |                  v          |
-    //   (j161)----(i332)*---(j163)----(i333)*-
-    //      |       |                     |
-    //           (j178)       BLOCK    (j180)
-    //              |                     |
-    //           (i340)-----(j179)-----(i341)--
-    //
-    // We expect that he should be able to reach each location prefixed with j and
-    // pictured in this map.
+	//      |                             |
+	//   (i322)----------(j162)--------(i323)
+	//      |                             |
+	//      |         BLOCK   Jack     (j164)
+	//      |                  v          |
+	//   (j161)----(i332)*---(j163)----(i333)*-
+	//      |       |                     |
+	//           (j178)       BLOCK    (j180)
+	//              |                     |
+	//           (i340)-----(j179)-----(i341)--
+	//
+	// We expect that he should be able to reach each location prefixed with j and
+	// pictured in this map.
 	do_alley_moves_test(
 		{
 			wl::JackMove{wl::map_id(161),wl::JackResource::ALLEY},
@@ -323,20 +323,20 @@ TEST(FindJackMoves, only_boat_moves) {
 	// adjacent to his current location, despite that fact that he is hemmed-in by investigators
 	// for all of his normal move locations. Investigators at * locations
 	//
-    //      \ /                                            |
-    //  --(i284)--(i285)--(j94)--(i275)*-(j79)--(i249)--(i250)--
-    //       |       |              |             |        |
-    //       |    (j111)W        (j95)W         (j80)W     |
-    //       |                                             |
-    //    (j112)               WATER BLOCK               (j97)
-    //       |                                             |
-    //       |  Jack is here --> (j113)W    (j96)W         |
-    //       |                      |          |           |
-    //  --(i348)------(j114)-----(i349)*----(i350)*-----(i351)--
-    //       |                                             |
-    //
-    // We expect that he should be able to reach each location prefixed with j and
-    // suffixed with W (for "water") pictured in this map.
+	//      \ /                                            |
+	//  --(i284)--(i285)--(j94)--(i275)*-(j79)--(i249)--(i250)--
+	//       |       |              |             |        |
+	//       |    (j111)W        (j95)W         (j80)W     |
+	//       |                                             |
+	//    (j112)               WATER BLOCK               (j97)
+	//       |                                             |
+	//       |  Jack is here --> (j113)W    (j96)W         |
+	//       |                      |          |           |
+	//  --(i348)------(j114)-----(i349)*----(i350)*-----(i351)--
+	//       |                                             |
+	//
+	// We expect that he should be able to reach each location prefixed with j and
+	// suffixed with W (for "water") pictured in this map.
 	do_boat_moves_test(
 		{
 			wl::JackMove{wl::map_id(80),wl::JackResource::BOAT},
@@ -370,24 +370,24 @@ TEST(FindJackMoves, boat_and_carriage_moves) {
 	//                                                                       --(J46)--
 	//                                                                           |
 	//                                                                        (i231)--(J65)--
-    //                            \ /                                            |
-    //                        --(i284)--(i285)--(j94)--(i275)*-(J79)--(i249)--(i250)--(J64)--
-    //                             |       |              |             |        |
-    //                             |    (j111)W        (j95)W         (J80)W     |
-    //                             |                                             |
-    //                          (J112)               WATER BLOCK               (J97)
-    //                             |                                             |
-    //                  (J131)W    |  Jack is here --> (j113)W    (J96)W         |
-    //                     |       |                      |          |           |
-    //--(J145)--(i346)--(i347)--(i348)------(J114)-----(i349)*----(i350)*-----(i351)--(J98)W
-    //             |               |                      |                      |
-    //          (J147)          (J132)                 (J115)                    |
-    //             |               |                      |                      |
-    //                                ------(J133)-----(i352)-----------------(J116)
-    //
-    // We expect that he should be able to reach each location prefixed with j and
-    // suffixed with W (for "water") pictured in this map, or any location with
-    // a capital J by carriage.
+	//                            \ /                                            |
+	//                        --(i284)--(i285)--(j94)--(i275)*-(J79)--(i249)--(i250)--(J64)--
+	//                             |       |              |             |        |
+	//                             |    (j111)W        (j95)W         (J80)W     |
+	//                             |                                             |
+	//                          (J112)               WATER BLOCK               (J97)
+	//                             |                                             |
+	//                  (J131)W    |  Jack is here --> (j113)W    (J96)W         |
+	//                     |       |                      |          |           |
+	//--(J145)--(i346)--(i347)--(i348)------(J114)-----(i349)*----(i350)*-----(i351)--(J98)W
+	//             |               |                      |                      |
+	//          (J147)          (J132)                 (J115)                    |
+	//             |               |                      |                      |
+	//                                ------(J133)-----(i352)-----------------(J116)
+	//
+	// We expect that he should be able to reach each location prefixed with j and
+	// suffixed with W (for "water") pictured in this map, or any location with
+	// a capital J by carriage.
 	do_all_moves_test(
 		{
 			wl::JackMove{wl::map_id(80),wl::JackResource::BOAT},
