@@ -135,6 +135,7 @@ public:
 			if (block_itr == block_end) {
 				continue;
 			}
+			assert(block_itr.get_graph().jack_node(*block_itr).is_water());
 			++block_itr;
 
 			for (; block_itr != block_end; ++block_itr) {
