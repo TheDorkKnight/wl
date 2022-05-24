@@ -96,6 +96,16 @@ void do_alley_moves_test(std::initializer_list<wl::JackMove> expected_moves,
 		wl::available_alley_jack_moves);
 }
 
+void do_boat_moves_test(std::initializer_list<wl::JackMove> expected_moves,
+	const wl::GameState& game_state,
+	const wl::History& history)
+{
+	do_moves_test(std::forward<std::initializer_list<wl::JackMove>>(expected_moves),
+		game_state,
+		history,
+		wl::available_boat_jack_moves);
+}
+
 } // namespace
 
 TEST(FindJackMoves, simple_normal_moves) {
@@ -257,7 +267,7 @@ TEST(FindJackMoves, only_alley_moves) {
 
 	// Here we test that Jack is able to reach any other j-node on each of the two blocks
 	// adjacent to his current location, despite that fact that he is hemmed-in by investigators
-	// for all of his normal move locations
+	// for all of his normal move locations. Investigators at * locations
 	//
     //      |                             |
     //   (i322)----------(j162)--------(i323)
@@ -280,6 +290,49 @@ TEST(FindJackMoves, only_alley_moves) {
 			wl::JackMove{wl::map_id(178),wl::JackResource::ALLEY},
 			wl::JackMove{wl::map_id(179),wl::JackResource::ALLEY},
 			wl::JackMove{wl::map_id(180),wl::JackResource::ALLEY}
+		},
+		game_state,
+		history);
+}
+
+TEST(FindJackMoves, only_boat_moves) {
+	// Make a game state.
+	// Give Jack 1 alley tile.
+	// Add investigators blocking other moves
+	constexpr wl::MapNode::ID jack_location = wl::map_id(113);
+	constexpr wl::PlayerLocations player_locations{ wl::map_id(349), wl::map_id(350), wl::map_id(275), jack_location };
+	const wl::GameState game_state{
+		player_locations,
+		wl::DiscoveryLocations{wl::map_id(173), wl::map_id(11), wl::map_id(64), wl::map_id(132)},
+		wl::InvestigatorAbilities{},
+		wl::JackInventory{0,0,1} // 1 boat card
+	};
+	const wl::History history{};
+
+	// Here we test that Jack is able to reach any other j-node in the same water block
+	// adjacent to his current location, despite that fact that he is hemmed-in by investigators
+	// for all of his normal move locations. Investigators at * locations
+	//
+    //      \ /                                            |
+    //  --(i284)--(i285)--(j94)--(i275)*-(j79)--(i249)--(i250)--
+    //       |       |              |             |        |
+    //       |    (j111)W        (j95)W         (j80)W     |
+    //       |                                             |
+    //    (j112)               WATER BLOCK               (j97)
+    //       |                                             |
+    //       |  Jack is here --> (j113)W    (j96)W         |
+    //       |                      |          |           |
+    //  --(i348)------(j114)-----(i349)*----(i350)*-----(i351)--
+    //       |                                             |
+    //
+    // We expect that he should be able to reach each location prefixed with j and
+    // suffixed with W (for "water") pictured in this map.
+	do_boat_moves_test(
+		{
+			wl::JackMove{wl::map_id(80),wl::JackResource::BOAT},
+			wl::JackMove{wl::map_id(95),wl::JackResource::BOAT},
+			wl::JackMove{wl::map_id(96),wl::JackResource::BOAT},
+			wl::JackMove{wl::map_id(111),wl::JackResource::BOAT}
 		},
 		game_state,
 		history);
