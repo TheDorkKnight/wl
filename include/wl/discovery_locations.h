@@ -24,6 +24,9 @@ public:
 	constexpr iterator begin() const noexcept { return locations_.begin(); }
 	constexpr iterator end() const noexcept { return locations_.end(); }
 	constexpr auto size() const noexcept { return locations_.size(); }
+	bool contains(MapNode::ID node_id) const noexcept {
+		return std::find(begin(), end(), node_id) != end();
+	}
 };
 
 } // namespace
