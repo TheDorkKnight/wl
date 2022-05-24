@@ -29,10 +29,11 @@ std::ostream& operator<<(std::ostream& os, JackMove move) {
 namespace {
 const wl::MapGraph k_default_map = wl::default_map();
 
-
-void do_normal_moves_test(std::initializer_list<wl::JackMove> expected_moves,
-	                      const wl::GameState& game_state,
-	                      const wl::History& history)
+template <class FindMovesFunc>
+void do_moves_test(std::initializer_list<wl::JackMove> expected_moves,
+	               const wl::GameState& game_state,
+	               const wl::History& history,
+	               FindMovesFunc&& find_moves)
 {
 	// setup a map to keep track of which expected moves we found
 	std::map<wl::JackMove, bool> expected_moves_found;
@@ -42,7 +43,7 @@ void do_normal_moves_test(std::initializer_list<wl::JackMove> expected_moves,
 	ASSERT_EQ(expected_moves_found.size(), expected_moves.size());
 
 	// find the moves
-	const auto found_moves = available_normal_jack_moves(game_state, history, k_default_map);
+	const auto found_moves = find_moves(game_state, history, k_default_map);
 	EXPECT_EQ(expected_moves_found.size(), found_moves.size());
 
 	// check that all moves found were expected
@@ -62,74 +63,37 @@ void do_normal_moves_test(std::initializer_list<wl::JackMove> expected_moves,
 			FAIL() << "did not find expected move: " << keyval.first;
 		}
 	}
+}
+
+
+void do_normal_moves_test(std::initializer_list<wl::JackMove> expected_moves,
+	                      const wl::GameState& game_state,
+	                      const wl::History& history)
+{
+	do_moves_test(std::forward<std::initializer_list<wl::JackMove>>(expected_moves),
+		game_state,
+		history,
+		wl::available_normal_jack_moves);
 }
 
 void do_carriage_moves_test(std::initializer_list<wl::JackMove> expected_moves,
 	const wl::GameState& game_state,
 	const wl::History& history)
 {
-	// setup a map to keep track of which expected moves we found
-	std::map<wl::JackMove, bool> expected_moves_found;
-	for (const wl::JackMove expected_move : expected_moves) {
-		expected_moves_found.emplace(expected_move, false);
-	}
-	ASSERT_EQ(expected_moves_found.size(), expected_moves.size());
-
-	// find the moves
-	const auto found_moves = available_carriage_jack_moves(game_state, history, k_default_map);
-	EXPECT_EQ(expected_moves_found.size(), found_moves.size());
-
-	// check that all moves found were expected
-	for (const wl::JackMove move : found_moves) {
-		auto itr = expected_moves_found.find(move);
-		if (itr == expected_moves_found.end()) {
-			FAIL() << "found unexpected move: " << move;
-			continue;
-		}
-		// note that we found this move
-		itr->second = true;
-	}
-
-	// check that all expected moves were found
-	for (const auto& keyval : expected_moves_found) {
-		if (!keyval.second) {
-			FAIL() << "did not find expected move: " << keyval.first;
-		}
-	}
+	do_moves_test(std::forward<std::initializer_list<wl::JackMove>>(expected_moves),
+		game_state,
+		history,
+		wl::available_carriage_jack_moves);
 }
 
 void do_alley_moves_test(std::initializer_list<wl::JackMove> expected_moves,
 	const wl::GameState& game_state,
 	const wl::History& history)
 {
-	// setup a map to keep track of which expected moves we found
-	std::map<wl::JackMove, bool> expected_moves_found;
-	for (const wl::JackMove expected_move : expected_moves) {
-		expected_moves_found.emplace(expected_move, false);
-	}
-	ASSERT_EQ(expected_moves_found.size(), expected_moves.size());
-
-	// find the moves
-	const auto found_moves = available_alley_jack_moves(game_state, history, k_default_map);
-	EXPECT_EQ(expected_moves_found.size(), found_moves.size());
-
-	// check that all moves found were expected
-	for (const wl::JackMove move : found_moves) {
-		auto itr = expected_moves_found.find(move);
-		if (itr == expected_moves_found.end()) {
-			FAIL() << "found unexpected move: " << move;
-			continue;
-		}
-		// note that we found this move
-		itr->second = true;
-	}
-
-	// check that all expected moves were found
-	for (const auto& keyval : expected_moves_found) {
-		if (!keyval.second) {
-			FAIL() << "did not find expected move: " << keyval.first;
-		}
-	}
+	do_moves_test(std::forward<std::initializer_list<wl::JackMove>>(expected_moves),
+		game_state,
+		history,
+		wl::available_alley_jack_moves);
 }
 
 } // namespace
