@@ -106,6 +106,16 @@ void do_boat_moves_test(std::initializer_list<wl::JackMove> expected_moves,
 		wl::available_boat_jack_moves);
 }
 
+void do_all_moves_test(std::initializer_list<wl::JackMove> expected_moves,
+	const wl::GameState& game_state,
+	const wl::History& history)
+{
+	do_moves_test(std::forward<std::initializer_list<wl::JackMove>>(expected_moves),
+		game_state,
+		history,
+		wl::available_jack_moves);
+}
+
 } // namespace
 
 TEST(FindJackMoves, simple_normal_moves) {
@@ -297,7 +307,7 @@ TEST(FindJackMoves, only_alley_moves) {
 
 TEST(FindJackMoves, only_boat_moves) {
 	// Make a game state.
-	// Give Jack 1 alley tile.
+	// Give Jack 1 boat tile.
 	// Add investigators blocking other moves
 	constexpr wl::MapNode::ID jack_location = wl::map_id(113);
 	constexpr wl::PlayerLocations player_locations{ wl::map_id(349), wl::map_id(350), wl::map_id(275), jack_location };
@@ -333,6 +343,74 @@ TEST(FindJackMoves, only_boat_moves) {
 			wl::JackMove{wl::map_id(95),wl::JackResource::BOAT},
 			wl::JackMove{wl::map_id(96),wl::JackResource::BOAT},
 			wl::JackMove{wl::map_id(111),wl::JackResource::BOAT}
+		},
+		game_state,
+		history);
+}
+
+TEST(FindJackMoves, boat_and_carriage_moves) {
+	// Make a game state.
+	// Give Jack 1 carriage tile and 1 boat tile.
+	// Add investigators blocking other moves
+	constexpr wl::MapNode::ID jack_location = wl::map_id(113);
+	constexpr wl::PlayerLocations player_locations{ wl::map_id(349), wl::map_id(350), wl::map_id(275), jack_location };
+	const wl::GameState game_state{
+		player_locations,
+		wl::DiscoveryLocations{wl::map_id(173), wl::map_id(11), wl::map_id(67), wl::map_id(171)},
+		wl::InvestigatorAbilities{},
+		wl::JackInventory{1,0,1} // 1 carriage and 1 boat card
+	};
+	const wl::History history{};
+
+	// Here we test that Jack is able to reach any other j-node in the same water block
+	// adjacent to his current location AND any j-node 1 or 2 hops away, despite the fact
+	// that he is hemmed-in by investigators for all of his normal move locations.
+	// Investigators at * locations
+	//                                                                           |      
+	//                                                                       --(J46)--
+	//                                                                           |
+	//                                                                        (i231)--(J65)--
+    //                            \ /                                            |
+    //                        --(i284)--(i285)--(j94)--(i275)*-(J79)--(i249)--(i250)--(J64)--
+    //                             |       |              |             |        |
+    //                             |    (j111)W        (j95)W         (J80)W     |
+    //                             |                                             |
+    //                          (J112)               WATER BLOCK               (J97)
+    //                             |                                             |
+    //                  (J131)W    |  Jack is here --> (j113)W    (J96)W         |
+    //                     |       |                      |          |           |
+    //--(J145)--(i346)--(i347)--(i348)------(J114)-----(i349)*----(i350)*-----(i351)--(J98)W
+    //             |               |                      |                      |
+    //          (J147)          (J132)                 (J115)                    |
+    //             |               |                      |                      |
+    //                                ------(J133)-----(i352)-----------------(J116)
+    //
+    // We expect that he should be able to reach each location prefixed with j and
+    // suffixed with W (for "water") pictured in this map, or any location with
+    // a capital J by carriage.
+	do_all_moves_test(
+		{
+			wl::JackMove{wl::map_id(80),wl::JackResource::BOAT},
+			wl::JackMove{wl::map_id(95),wl::JackResource::BOAT},
+			wl::JackMove{wl::map_id(96),wl::JackResource::BOAT},
+			wl::JackMove{wl::map_id(111),wl::JackResource::BOAT},
+			wl::JackMove{wl::map_id(46),wl::JackResource::CARRIAGE},
+			wl::JackMove{wl::map_id(64),wl::JackResource::CARRIAGE},
+			wl::JackMove{wl::map_id(65),wl::JackResource::CARRIAGE},
+			wl::JackMove{wl::map_id(79),wl::JackResource::CARRIAGE},
+			wl::JackMove{wl::map_id(80),wl::JackResource::CARRIAGE},
+			wl::JackMove{wl::map_id(96),wl::JackResource::CARRIAGE},
+			wl::JackMove{wl::map_id(97),wl::JackResource::CARRIAGE},
+			wl::JackMove{wl::map_id(98),wl::JackResource::CARRIAGE},
+			wl::JackMove{wl::map_id(112),wl::JackResource::CARRIAGE},
+			wl::JackMove{wl::map_id(114),wl::JackResource::CARRIAGE},
+			wl::JackMove{wl::map_id(115),wl::JackResource::CARRIAGE},
+			wl::JackMove{wl::map_id(116),wl::JackResource::CARRIAGE},
+			wl::JackMove{wl::map_id(131),wl::JackResource::CARRIAGE},
+			wl::JackMove{wl::map_id(132),wl::JackResource::CARRIAGE},
+			wl::JackMove{wl::map_id(133),wl::JackResource::CARRIAGE},
+			wl::JackMove{wl::map_id(145),wl::JackResource::CARRIAGE},
+			wl::JackMove{wl::map_id(147),wl::JackResource::CARRIAGE}
 		},
 		game_state,
 		history);
