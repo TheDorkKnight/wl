@@ -5,6 +5,7 @@
 #include <wl/wl.h>
 #include <wl/game_state.h>
 #include <wl/j_moves.h>
+#include <wl/j_node_blocks_iterator.h>
 
 namespace wl {
 
@@ -174,8 +175,12 @@ inline std::vector<JackMove> available_carriage_jack_moves(const GameState& game
 inline std::vector<JackMove> available_alley_jack_moves(const GameState& game_state,
 	                                                    const History& game_history,
 	                                                    const MapGraph& map_graph) {
-	// TODO: really implement
-	return std::vector<JackMove>{};
+	const auto blocks = JackNodeBlocks{game_state.jack_location(), map_graph};
+	std::vector<JackMove> moves;
+	blocks.for_each_alley_neighbor([&moves](MapNode::ID alley_neighbor){
+		moves.push_back(JackMove{ alley_neighbor, JackResource::ALLEY });
+	});
+	return moves;
 }
 
 inline std::vector<JackMove> available_boat_jack_moves(const GameState& game_state,
