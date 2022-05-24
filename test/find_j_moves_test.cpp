@@ -98,6 +98,40 @@ void do_carriage_moves_test(std::initializer_list<wl::JackMove> expected_moves,
 	}
 }
 
+void do_alley_moves_test(std::initializer_list<wl::JackMove> expected_moves,
+	const wl::GameState& game_state,
+	const wl::History& history)
+{
+	// setup a map to keep track of which expected moves we found
+	std::map<wl::JackMove, bool> expected_moves_found;
+	for (const wl::JackMove expected_move : expected_moves) {
+		expected_moves_found.emplace(expected_move, false);
+	}
+	ASSERT_EQ(expected_moves_found.size(), expected_moves.size());
+
+	// find the moves
+	const auto found_moves = available_alley_jack_moves(game_state, history, k_default_map);
+	EXPECT_EQ(expected_moves_found.size(), found_moves.size());
+
+	// check that all moves found were expected
+	for (const wl::JackMove move : found_moves) {
+		auto itr = expected_moves_found.find(move);
+		if (itr == expected_moves_found.end()) {
+			FAIL() << "found unexpected move: " << move;
+			continue;
+		}
+		// note that we found this move
+		itr->second = true;
+	}
+
+	// check that all expected moves were found
+	for (const auto& keyval : expected_moves_found) {
+		if (!keyval.second) {
+			FAIL() << "did not find expected move: " << keyval.first;
+		}
+	}
+}
+
 } // namespace
 
 TEST(FindJackMoves, simple_normal_moves) {
@@ -238,6 +272,50 @@ TEST(FindJackMoves, normal_carriage_moves) {
 			wl::JackMove{wl::map_id(46),wl::JackResource::CARRIAGE},
 			wl::JackMove{wl::map_id(47),wl::JackResource::CARRIAGE},
 			wl::JackMove{wl::map_id(24),wl::JackResource::CARRIAGE}
+		},
+		game_state,
+		history);
+}
+
+TEST(FindJackMoves, only_alley_moves) {
+	// Make a game state.
+	// Give Jack 1 alley tile.
+	// Add investigators blocking other moves
+	constexpr wl::MapNode::ID jack_location = wl::map_id(163);
+	constexpr wl::PlayerLocations player_locations{ wl::map_id(332), wl::map_id(323), wl::map_id(333), jack_location };
+	const wl::GameState game_state{
+		player_locations,
+		wl::DiscoveryLocations{wl::map_id(173), wl::map_id(11), wl::map_id(64), wl::map_id(132)},
+		wl::InvestigatorAbilities{},
+		wl::JackInventory{0,1,0} // 1 alley card
+	};
+	const wl::History history{};
+
+	// Here we test that Jack is able to reach any other j-node on each of the two blocks
+	// adjacent to his current location, despite that fact that he is hemmed-in by investigators
+	// for all of his normal move locations
+	//
+    //      |                             |
+    //   (i322)----------(j162)--------(i323)
+    //      |                             |
+    //      |         BLOCK   Jack     (j164)
+    //      |                  v          |
+    //   (j161)----(i332)*---(j163)----(i333)*-
+    //      |       |                     |
+    //           (j178)       BLOCK    (j180)
+    //              |                     |
+    //           (i340)-----(j179)-----(i341)--
+    //
+    // We expect that he should be able to reach each location prefixed with j and
+    // pictured in this map.
+	do_alley_moves_test(
+		{
+			wl::JackMove{wl::map_id(161),wl::JackResource::ALLEY},
+			wl::JackMove{wl::map_id(162),wl::JackResource::ALLEY},
+			wl::JackMove{wl::map_id(164),wl::JackResource::ALLEY},
+			wl::JackMove{wl::map_id(178),wl::JackResource::ALLEY},
+			wl::JackMove{wl::map_id(179),wl::JackResource::ALLEY},
+			wl::JackMove{wl::map_id(180),wl::JackResource::ALLEY}
 		},
 		game_state,
 		history);
