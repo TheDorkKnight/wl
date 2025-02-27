@@ -1,3 +1,3 @@
 whitehall:
-	clang++ -std=c++2a -I ../../include -o whitehall src/main.cpp
+	clang++ -std=c++20 -I ../../include -o whitehall src/main.cpp
 
