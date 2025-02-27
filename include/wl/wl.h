@@ -8,6 +8,7 @@
 #include <optional>
 #include <span>
 #include <algorithm>
+#include <limits>
 
 #include "tagged_id.h"
 
