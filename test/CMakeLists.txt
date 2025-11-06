@@ -18,6 +18,12 @@ set(WL_TEST_SOURCES
     water_node_test.cpp
 )
 
-add_executable(wl_test ${WL_TEST_SOURCES} main.cpp)
-target_link_libraries(wl_test PRIVATE GTest::GTest)
+add_executable(wl_test ${WL_TEST_SOURCES})
+target_link_libraries(wl_test PRIVATE GTest::GTest GTest::Main)
 target_include_directories(wl_test PRIVATE ../include)
+
+# run the test from build
+include(GoogleTest)
+gtest_discover_tests(wl_test)
+
+enable_testing()
