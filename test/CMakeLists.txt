@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 project(WLTest)
 
-set(CMAKE_CXX_STANDARD 20)
-
 find_package(GTest REQUIRED)
 
 set(WL_TEST_SOURCES 
@@ -18,9 +16,10 @@ set(WL_TEST_SOURCES
     water_node_test.cpp
 )
 
+include (../cmake/wl.cmake)
+
 add_executable(wl_test ${WL_TEST_SOURCES})
-target_link_libraries(wl_test PRIVATE GTest::GTest GTest::Main)
-target_include_directories(wl_test PRIVATE ../include)
+target_link_libraries(wl_test PRIVATE wl GTest::GTest GTest::Main)
 
 # run the test from build
 include(GoogleTest)
