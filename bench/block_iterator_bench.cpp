@@ -12,7 +12,7 @@ void Benchmark_ClockwiseBlockIteration(benchmark::State& state) {
 	const wl::ClockwiseBlock first_block{ wl::map_id(189u), wl::map_id(1u), default_map };
 
 	for (auto _ : state) {
-		for (const auto node_id : first_block) {
+		for (auto node_id : first_block) {
 			benchmark::DoNotOptimize(node_id);
 		}
 	}
@@ -23,7 +23,7 @@ void Benchmark_ClockwiseNodeBlocksIteration(benchmark::State& state) {
 
 	for (auto _ : state) {
 		for (const auto& block : blocks_for_node_9) {
-			for (const auto node_id : block) {
+			for (auto node_id : block) {
 				benchmark::DoNotOptimize(node_id);
 			}
 		}
